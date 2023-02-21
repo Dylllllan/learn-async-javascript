@@ -1,3 +1,6 @@
 import "./style.scss";
 
-console.log("Hello world!");
+import ace from "brace";
+
+// Setup Ace editor
+const editor = ace.edit(document.querySelector("#editor"));
