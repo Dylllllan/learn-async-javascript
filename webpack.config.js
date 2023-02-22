@@ -2,7 +2,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-// const CopyPlugin = require("copy-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
     entry: "./src/index.js",
@@ -74,15 +74,13 @@ module.exports = {
         ]
     },
     plugins: [
-        // Exclude images and sounds from builds until we create assets
-        /*
+        
         new CopyPlugin({
             patterns: [
-                { from: "src/images", to: "images" },
-                { from: "src/sounds", to: "sounds" }
+                // { from: "src/images", to: "images" },
+                { from: "src/lessons", to: "lessons" }
             ],
         }),
-        */
         new MiniCssExtractPlugin(),
         new HtmlWebpackPlugin({
             template: "./src/index.html",
