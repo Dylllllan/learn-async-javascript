@@ -13,6 +13,9 @@ async function init() {
     // Add the lesson template script to the editor and move the cursor to the start
     editor.setValue(script, -1);
 
+    // Restrict editing between line 2 and 4 in the editor
+    editor.restrictEditing(2, 4);
+
     document.getElementById("content").innerHTML = parse("## Example of using markdown\nThis is good for generating content.  \nEven with `code snippets`.\n```\nalert(\"Hello World!\");\nvar a = 0;\n```");
 }
 
