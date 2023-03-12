@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <style type="text/css">
+            body {
+                margin: 0;
+            }
+            div {
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+            .pond {
+                position: fixed;
+                background-image: url("./images/pond.png");
+                
+                width: 100vw;
+                /* Maintain aspect ratio of pond setting */
+                height: calc((688/950) * 100vw);
+
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .character, .speechBubble {
+                position: absolute;
+            }
+
+            .character {
+                width: 12%;
+                height: 12%;
+            }
+            .character#frog {
+                background-image: url("./images/frog.png");
+                bottom: 25%;
+                right: 20%;
+            }
+            .character#grasshopper {
+                background-image: url("./images/grasshopper.png");
+                bottom: 25%;
+                left: 25%;
+            }
+            .character#fly {
+                background-image: url("./images/fly.png");
+                top: 25%;
+                right: 0;
+                width: 7%;
+                height: 7%;
+            }
+
+            .speechBubble {
+                width: 15%;
+                height: 15%;
+            }
+            .speechBubble#frogSpeech {
+                background-image: url("./images/frogSpeech.png");
+                bottom: 35%;
+                right: 30%;
+            }
+            .speechBubble#grasshopperSpeech {
+                background-image: url("./images/grasshopperSpeech.png");
+                bottom: 35%;
+                left: 30%;
+            }
+        </style>
+        <script>
+
+        </script>
+    </head>
+
+    <body>
+        <div class="pond">
+            <div class="character" id="frog"></div>
+            <div class="character" id="grasshopper"></div>
+            <div class="character" id="fly"></div>
+
+            <div class="speechBubble" id="frogSpeech"></div>
+            <div class="speechBubble" id="grasshopperSpeech"></div>
+        </div>
+    </body>
+</html>

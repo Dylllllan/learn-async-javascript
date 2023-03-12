@@ -97,6 +97,17 @@ class Editor {
         });
     }
 
+    // Create a method to add multiple custom completers to the editor
+    // Each completer should have a value, score and meta property
+    addCompleters(completers) {
+        // Add the completers to the editor
+        this.editor.completers.push({
+            getCompletions: (editor, session, pos, prefix, callback) => {
+                callback(null, completers);
+            }
+        });
+    }
+
     // Create a method to remove all custom completers from the editor
     removeCompleters() {
         this.editor.completers = [];

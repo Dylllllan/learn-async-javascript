@@ -1,0 +1,27 @@
+{
+    "name": "The Frog and the Grasshopper",
+    "objective": "Learn how to use callbacks in JavaScript",
+    "resources": {
+        "content": "./lessons/lesson1/lesson.md",
+        "code": "./lessons/lesson1/code.txt",
+        "animation": "./lessons/lesson1/animation.html"
+    },
+    "editor": {
+        "editableArea": {
+            "start": 14,
+            "end": 15
+        },
+        "completers": [
+            {
+                "value": "catchFly",
+                "score": 1,
+                "meta": "function"
+            },
+            {
+                "value": "celebrate",
+                "score": 1,
+                "meta": "function"
+            }
+        ]
+    }
+}
