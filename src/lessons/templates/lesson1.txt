@@ -1,0 +1,14 @@
+// A function that takes a callback function as a parameter
+function catchFly(callback) {
+    // The frog and grasshopper work together to catch the fly
+    // This could take any amount of time
+    // The callback function will be called when the fly is caught
+}
+    
+// A function that is called when the fly is caught
+function celebrate() {
+    // The frog and grasshopper celebrate catching the fly
+}
+    
+// Call the catchFly function and pass the celebrate function as a callback
+

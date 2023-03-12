@@ -1,6 +1,7 @@
 // Import the Ace editor library
 import ace from "brace";
-
+// Import the Range class from the Ace editor library
+const Range = ace.acequire("ace/range").Range;
 // Import the JavaScript mode for the Ace editor
 import "brace/mode/javascript";
 // Import the language tools extension for the Ace editor
@@ -22,6 +23,49 @@ class Editor {
         });
         // Remove the default completer
         this.editor.completers = [];
+
+        // Initialise the start and end anchors for the editable area
+        this.startAnchor = this.editor.session.doc.createAnchor(0, 0);
+        this.endAnchor = this.editor.session.doc.createAnchor(0, 0);
+
+        // Set a default listener for the editable area of the editor
+        this.editor.commands.on("exec", (e) => {
+            // If the start anchor is not at the start of a line
+            if (this.startAnchor.column != 0) {
+                // Move the start anchor to the start of the line
+                this.startAnchor.setPosition(this.startAnchor.row, 0);
+            }
+
+            // Get the cursor position
+            const cursor = this.editor.getCursorPosition();
+            
+            // If the cursor is not within the editable area
+            if (cursor.row < this.startAnchor.row || cursor.row > this.endAnchor.row ||
+               (cursor.row === this.startAnchor.row && cursor.column < this.startAnchor.column) ||
+               (cursor.row === this.endAnchor.row && cursor.column > this.endAnchor.column)) {
+                // Prevent the command from being executed
+                e.preventDefault();
+            }
+
+            // Get the selection range
+            const range = this.editor.getSelectionRange();
+            // If the selection range is not within the editable area
+            if (range.start.row < this.startAnchor.row || range.end.row > this.endAnchor.row ||
+               (range.start.row === this.startAnchor.row && range.start.column < this.startAnchor.column) ||
+               (range.end.row === this.endAnchor.row && range.end.column > this.endAnchor.column)) {
+                // Prevent the command from being executed
+                e.preventDefault();
+            }
+
+            // If the command is backspacing or deleting
+            if (e.command.name === "backspace" || e.command.name === "del") {
+                // If the cursor is at the start of the editable area
+                if (cursor.row === this.startAnchor.row && cursor.column === this.startAnchor.column) {
+                    // Prevent the command from being executed
+                    e.preventDefault();
+                }
+            }
+        });
     }
 
     // Create a method to get the value of the editor
@@ -58,9 +102,9 @@ class Editor {
         this.editor.completers = [];
     }
 
-    // Create a method to disallow editing between two lines in the editor
+    // Create a method to allow editing between two lines in the editor
     // Start line and end line are defined as the line numbers in the editor, not the index of the line in the array
-    restrictEditing(startLine, endLine) {
+    setEditableArea(startLine, endLine) {
         // Throw an error if the start line is greater than the end line
         if (startLine >= endLine) {
             throw new Error("Start line cannot be greater than or equal to end line");
@@ -70,29 +114,17 @@ class Editor {
             throw new Error("Start or end line is out of range");
         }
 
-        // Attach Anchors to the start and end of the restricted area
-        const start = this.editor.session.doc.createAnchor(startLine - 1, 0);
-        const end = this.editor.session.doc.createAnchor(endLine - 1, 0);
+        // Set the start and end anchors to the start and end of the editable area
+        this.startAnchor = this.editor.session.doc.createAnchor(startLine - 1, 0);
+        this.endAnchor = this.editor.session.doc.createAnchor(endLine - 1, 0);
 
-        // If any commands are executed on the editor
-        this.editor.commands.on("exec", (e) => {
-            // Get the cursor position
-            const cursor = this.editor.getCursorPosition();
-            
-            // If the cursor is after the start anchor and before the end anchor
-            if (cursor.row >= start.row && cursor.row <= end.row) {
-                // Prevent the command from being executed
-                e.preventDefault();
-            }
+        // Create a Range object which represents the editable area
+        this.editableArea = new Range();
+        this.editableArea.start = this.startAnchor;
+        this.editableArea.end = this.endAnchor;
 
-            // Get the selection range
-            const range = this.editor.getSelectionRange();
-            // If the selection range starts or ends in the restricted area, or contains the restricted area
-            if ((range.start.row >= start.row && range.start.row <= end.row) || (range.end.row >= start.row && range.end.row <= end.row) || (range.start.row <= start.row && range.end.row >= end.row)) {
-                // Prevent the command from being executed
-                e.preventDefault();
-            }
-        });
+        // Add a marker to the editor to highlight the editable area
+        this.editor.session.addMarker(this.editableArea, "editable", "fullLine");
     }
 }
 

@@ -3,20 +3,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // Import the main CSS stylesheet
 import "./style.scss";
 
-import { parse } from "marked";
-
 import editor from "./editor";
+import content from "./content";
 
 async function init() {
     // Load the lesson template script as a text string
-    const script = await (await fetch("./lessons/templates/lesson1.js")).text();
+    const script = await (await fetch("./lessons/templates/lesson1.txt")).text();
     // Add the lesson template script to the editor and move the cursor to the start
-    editor.setValue(script, -1);
+    editor.setValue(script);
 
-    // Restrict editing between line 2 and 4 in the editor
-    editor.restrictEditing(2, 4);
+    editor.setEditableArea(14, 15);
 
-    document.getElementById("content").innerHTML = parse("## Example of using markdown\nThis is good for generating content.  \nEven with `code snippets`.\n```\nalert(\"Hello World!\");\nvar a = 0;\n```");
+    const lesson = await (await fetch("./lessons/templates/lesson1.md")).text();
+    content.setContent(lesson);
 }
 
 init();
