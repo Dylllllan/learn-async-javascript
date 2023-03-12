@@ -22,7 +22,7 @@
                 transform: translateY(-50%);
             }
 
-            .character, .speechBubble {
+            .character, .speechBubble, .container {
                 position: absolute;
             }
 
@@ -40,17 +40,23 @@
                 bottom: 25%;
                 left: 25%;
             }
-            .character#fly {
-                background-image: url("./images/fly.png");
+            .container#flyContainer {
                 top: 25%;
-                right: 0;
+                right: -7%;
                 width: 7%;
                 height: 7%;
+            }
+            .character#fly {
+                background-image: url("./images/fly.png");
+                width: 100%;
+                height: 100%;
             }
 
             .speechBubble {
                 width: 15%;
                 height: 15%;
+                /* Hide speech bubbles by default */
+                opacity: 0;
             }
             .speechBubble#frogSpeech {
                 background-image: url("./images/frogSpeech.png");
@@ -62,20 +68,210 @@
                 bottom: 35%;
                 left: 30%;
             }
-        </style>
-        <script>
+            .speechBubble#grasshopperJump {
+                background-image: url("./images/grasshopperJump.png");
+                bottom: 35%;
+                left: 30%;
+            }
 
-        </script>
+            /* Create a CSS animation for the frog jumping */
+            @keyframes frogJump {
+                0% {
+                    bottom: 25%;
+                }
+                40% {
+                    bottom: 65%;
+                }
+                60% {
+                    bottom: 65%;
+                }
+                100% {
+                    bottom: 25%;
+                }
+            }
+            [animation~="frogJump"] {
+                animation: frogJump 3s ease-in-out 1;
+            }
+
+            /* Create a CSS animation for the fly flying to above the frog */
+            @keyframes flyFlying {
+                0% {
+                    right: -7%;
+                }
+                100% {
+                    right: 27%;
+                }
+            }
+            [animation~="flyFlying"] {
+                animation: flyFlying 5s ease-in-out 1;
+                animation-fill-mode: forwards;
+            }
+
+            /* Create a CSS animation for the fly shaking */
+            @keyframes flyShake {
+                0% {
+                    transform: rotate(-25deg);
+                }
+                50% {
+                    transform: rotate(12deg);
+                }
+                100% {
+                    transform: rotate(-25deg);
+                }
+            }
+            [animation~="flyShake"] {
+                animation: flyShake 0.2s linear infinite;
+            }
+
+            /* Create a CSS animation for the fly shrinking using scale transformation */
+            @keyframes flyShrink {
+                0% {
+                    transform: scale(1);
+                }
+                100% {
+                    transform: scale(0);
+                }
+            }
+            [animation~="flyShrink"] {
+                animation: flyShrink 0.5s ease-in-out 1;
+                animation-fill-mode: forwards;
+            }
+
+            /* Create a CSS animation for showing a speech bubble for 3 seconds with a fade transition */
+            @keyframes speechBubbleFade {
+                0% {
+                    opacity: 0;
+                }
+                25% {
+                    opacity: 1;
+                }
+                100% {
+                    opacity: 1;
+                }
+            }
+            [animation~="speechBubbleFade"] {
+                animation: speechBubbleFade 1.5s ease-in-out 2;
+                animation-direction: alternate;
+                animation-fill-mode: forwards;
+            }
+
+            /* Create a CSS animation for a barrel roll animation */
+            @keyframes barrelRoll {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+            [animation~="barrelRoll"] {
+                animation: barrelRoll 1s linear 3;
+            }
+        </style>
     </head>
 
     <body>
         <div class="pond">
             <div class="character" id="frog"></div>
             <div class="character" id="grasshopper"></div>
-            <div class="character" id="fly"></div>
+            <div class="container" id="flyContainer">
+                <div class="character" id="fly"></div>
+            </div>
 
             <div class="speechBubble" id="frogSpeech"></div>
             <div class="speechBubble" id="grasshopperSpeech"></div>
+            <div class="speechBubble" id="grasshopperJump"></div>
         </div>
+
+        <script>
+            // Setup a listener to listen to messages from the parent window
+            window.addEventListener("message", async function(event) {
+                // Check that the message is coming from the parent window
+                if (event.source != window.parent) {
+                    return;
+                }
+
+                // Check the type of the message
+                switch (event.data.type) {
+                    case "catchFly":
+                        // Run the catch fly animation
+                        await catchFly();
+                        break;
+                    case "celebrate":
+                        // Run the celebrate animation
+                        await celebrate();
+                        break;
+                    case "reset":
+                        // Reset the animation
+                        resetAnimation();
+                        break;
+                }
+
+                // Send a message back to the parent window with the message ID
+                window.parent.postMessage({
+                    type: "finished",
+                    id: event.data.id
+                }, "*");
+            });
+
+            // Function to reset all animation attributes on all objects
+            function resetAnimation() {
+                // Get all elements with the animation attribute
+                var elements = document.querySelectorAll("[animation]");
+                // Loop through all elements
+                for (var i = 0; i < elements.length; i++) {
+                    // Set the animation attribute to an empty string
+                    elements[i].setAttribute("animation", "");
+                }
+            }
+
+            function wait(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+            // Function to add an animation to the animation attribute of an element by its ID
+            function addAnimation(id, animation) {
+                document.getElementById(id).setAttribute("animation", document.getElementById(id).getAttribute("animation") + " " + animation);
+            }
+
+            // Function to start the catch fly animation
+            async function catchFly() {
+                // Add the fly shaking animation to the fly
+                addAnimation("fly", "flyShake");
+                // Add the fly flying animation to the fly container
+                addAnimation("flyContainer", "flyFlying");
+                // Wait for 2.5 seconds
+                await wait(2500);
+                // Add the speech bubble show animation to the grasshopper jump speech bubble
+                addAnimation("grasshopperJump", "speechBubbleFade");
+                // Wait for 1 second
+                await wait(1000);
+                // Add the frog jumping animation to the frog
+                addAnimation("frog", "frogJump");
+                // Wait for 1.5 seconds
+                await wait(1500);
+                // Add the fly shrinking animation to the fly
+                addAnimation("fly", "flyShrink");
+                // Wait for 1.5 seconds
+                await wait(1500);
+                // Reset the animation
+                resetAnimation();
+            }
+
+            async function celebrate() {
+                // Add the barrel roll animation to the frog
+                addAnimation("frog", "barrelRoll");
+                // Add the barrel roll animation to the grasshopper
+                addAnimation("grasshopper", "barrelRoll");
+                // Add the speech bubble show animation to the frog speech
+                addAnimation("frogSpeech", "speechBubbleFade");
+                // Add the speech bubble show animation to the grasshopper speech
+                addAnimation("grasshopperSpeech", "speechBubbleFade");
+                // Wait for 3 seconds
+                await wait(3000);
+                // Reset the animation
+                resetAnimation();
+            }
+        </script>
     </body>
 </html>
