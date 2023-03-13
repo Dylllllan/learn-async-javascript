@@ -23,5 +23,10 @@
                 "meta": "function"
             }
         ]
+    },
+    "runner": {
+        "test": "./lessons/lesson1/test.js",
+        "script": "./lessons/lesson1/runner.js",
+        "timeout": 10000
     }
 }

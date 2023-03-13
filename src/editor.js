@@ -41,8 +41,8 @@ class Editor {
             
             // If the cursor is not within the editable area
             if (cursor.row < this.startAnchor.row || cursor.row > this.endAnchor.row ||
-               (cursor.row === this.startAnchor.row && cursor.column < this.startAnchor.column) ||
-               (cursor.row === this.endAnchor.row && cursor.column > this.endAnchor.column)) {
+               (cursor.row == this.startAnchor.row && cursor.column < this.startAnchor.column) ||
+               (cursor.row == this.endAnchor.row && cursor.column > this.endAnchor.column)) {
                 // Prevent the command from being executed
                 e.preventDefault();
             }
@@ -51,16 +51,16 @@ class Editor {
             const range = this.editor.getSelectionRange();
             // If the selection range is not within the editable area
             if (range.start.row < this.startAnchor.row || range.end.row > this.endAnchor.row ||
-               (range.start.row === this.startAnchor.row && range.start.column < this.startAnchor.column) ||
-               (range.end.row === this.endAnchor.row && range.end.column > this.endAnchor.column)) {
+               (range.start.row == this.startAnchor.row && range.start.column < this.startAnchor.column) ||
+               (range.end.row == this.endAnchor.row && range.end.column > this.endAnchor.column)) {
                 // Prevent the command from being executed
                 e.preventDefault();
             }
 
             // If the command is backspacing or deleting
-            if (e.command.name === "backspace" || e.command.name === "del") {
+            if (e.command.name == "backspace" || e.command.name == "del") {
                 // If the cursor is at the start of the editable area
-                if (cursor.row === this.startAnchor.row && cursor.column === this.startAnchor.column) {
+                if (cursor.row == this.startAnchor.row && cursor.column == this.startAnchor.column) {
                     // Prevent the command from being executed
                     e.preventDefault();
                 }
@@ -136,6 +136,12 @@ class Editor {
 
         // Add a marker to the editor to highlight the editable area
         this.editor.session.addMarker(this.editableArea, "editable", "fullLine");
+    }
+
+    // Create a method to get the contents of the editable area
+    getEditableArea() {
+        // Return the contents of the editable area
+        return this.editor.session.getTextRange(this.editableArea);
     }
 }
 
