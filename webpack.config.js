@@ -45,7 +45,7 @@ module.exports = {
                 ],
             },
             {
-                test: /\.(png|jpg|jpeg|svg|gif|webp|mp3)$/,
+                test: /\.(png|jpg|jpeg|svg|gif|webp|mp3|md)$/,
                 use: [
                     {
                         loader: "file-loader",
@@ -60,7 +60,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(woff(2)?|ttf|eot|otf)(\?v=\d+\.\d+\.\d+)?$/,
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
                 use: [
                     {
                         loader: "file-loader",
@@ -70,21 +70,20 @@ module.exports = {
                         }
                     }
                 ]
-            }
+            },
         ]
     },
     plugins: [
-        
         new CopyPlugin({
             patterns: [
-                // { from: "src/images", to: "images" },
-                { from: "src/lessons", to: "lessons" }
+                { from: "src/images", to: "images" },
+                { from: "src/lessons", to: "lessons", globOptions: { ignore: ["**/*.js"] } },
             ],
         }),
         new MiniCssExtractPlugin(),
         new HtmlWebpackPlugin({
             template: "./src/index.html",
             inject: true,
-        }),
+        })
     ]
 };

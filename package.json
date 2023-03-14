@@ -2,7 +2,7 @@
   "name": "individual-project",
   "version": "1.0.0",
   "private": true,
-  "description": "Teaching Asynchronous Programming in JavaScript with Interactive Visualisations",
+  "description": "Teaching Asynchronous Programming in JavaScript with Interactive Animations",
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.dev.js --watch",

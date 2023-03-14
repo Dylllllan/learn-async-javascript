@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-(code, request) => {
+export default (code, request) => {
     function catchFly(callback) {
         request("catchFly", callback);
     }

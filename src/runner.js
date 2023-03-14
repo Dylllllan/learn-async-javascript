@@ -33,14 +33,14 @@ class Runner {
 
     // Create a method to test the code based on a tester script
     test(code, tester) {
-        return eval(tester)(code);
+        return tester(code);
     }
 
     // Create a method to run the code
     run(code, runner) {
         return new Promise((resolve, reject) => {
             try {
-                eval(runner)(code, (request, callback = null) => {
+                runner(code, (request, callback = null) => {
                     // If the request type is finished
                     if (request == "finished") {
                         // Resolve the promise

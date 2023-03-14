@@ -9,10 +9,10 @@ import runner from "./runner";
 
 async function init() {
     // Load the JSON lesson data for lesson 1
-    const lesson = await (await fetch("./lessons/lesson1.json")).json();
+    const lesson = await fetch("./lessons/lesson1.json").then(response => response.json());
 
     // Load the lesson template script
-    const script = await (await fetch(lesson.resources.code)).text();
+    const script = await fetch(`./lessons/${lesson.id}/${lesson.resources.code}`).then(response => response.text());
 
     // Add the lesson template script to the editor
     editor.setValue(script);
@@ -22,18 +22,19 @@ async function init() {
     // Add the custom completers to the editor
     editor.addCompleters(lesson.editor.completers);
 
-    const lessonContent = await (await fetch(lesson.resources.content)).text();
+    const lessonContent = await fetch(`./lessons/${lesson.id}/${lesson.resources.content}`).then(response => response.text());
     content.setContent(lessonContent);
 
     // Create an iframe inside the animation container
     const iframe = document.createElement("iframe");
-    iframe.src = lesson.resources.animation;
+    iframe.src = `./lessons/${lesson.id}/${lesson.resources.animation}`;
     document.getElementById("animation").appendChild(iframe);
 
     // Load the lesson test script
-    const tester = await (await fetch(lesson.runner.test)).text();
+    const {default: tester} = await import(`./lessons/${lesson.id}/${lesson.runner.test}.js`);
+
     // Load the lesson runner script
-    const runnerScript = await (await fetch(lesson.runner.script)).text();
+    const {default: runnerScript} = await import(`./lessons/${lesson.id}/${lesson.runner.script}`);
 
     // When the #run button is clicked
     document.getElementById("run").addEventListener("click", async () => {

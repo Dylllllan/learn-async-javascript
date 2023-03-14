@@ -1,10 +1,11 @@
 {
+    "id": "lesson1",
     "name": "The Frog and the Grasshopper",
     "objective": "Learn how to use callbacks in JavaScript",
     "resources": {
-        "content": "./lessons/lesson1/lesson.md",
-        "code": "./lessons/lesson1/code.txt",
-        "animation": "./lessons/lesson1/animation.html"
+        "content": "lesson.md",
+        "code": "code.txt",
+        "animation": "animation.html"
     },
     "editor": {
         "editableArea": {
@@ -25,8 +26,8 @@
         ]
     },
     "runner": {
-        "test": "./lessons/lesson1/test.js",
-        "script": "./lessons/lesson1/runner.js",
+        "test": "test",
+        "script": "runner",
         "timeout": 10000
     }
 }

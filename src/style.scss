@@ -1,4 +1,14 @@
 body {
+    .navbar {
+        .logo {
+            width: auto;
+            height: 50px;
+
+            background-image: url("./images/logo_UniversityOfLeeds.webp");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+    }
     
     .row > div > div {
         height: 500px;
