@@ -1,18 +1,30 @@
 body {
     .navbar {
-        .logo {
-            width: auto;
+        .navbar-brand {
+            width: 150px;
             height: 50px;
 
             background-image: url("./images/logo_UniversityOfLeeds.webp");
             background-size: contain;
             background-repeat: no-repeat;
+            background-position: left center;
         }
+
+        .navbar-text {
+            font-weight: 500;
+            font-size: 1.2em;
+        }
+
+        margin-bottom: 15px;
     }
-    
-    .row > div > div {
-        height: 500px;
-    }
+
+    .panel {
+        .view {
+            height: 500px;
+            overflow: auto;
+            margin-bottom: 15px;
+        }        
+    }    
 
     #editor {
         .editable {
@@ -27,5 +39,10 @@ body {
             width: 100%;
             height: 100%;
         }
+    }
+
+    // Utility class to hide panels
+    .hidden {
+        display: none;
     }
 }

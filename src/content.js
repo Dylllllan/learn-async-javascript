@@ -4,7 +4,7 @@ import { parse } from "marked";
 // Create a new class called Content
 class Content {
     constructor() {
-        this.element = document.querySelector("#content");
+        this.element = document.querySelector("#content .view");
     }
 
     // Create a method to set the content of the content element

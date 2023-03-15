@@ -5,14 +5,18 @@ import runner from "./runner";
 // Create a new class called Lesson
 class Lesson {
     // Create a constructor which takes the configuration object and a callback function
-    constructor(config, completedCallback) {
-        this.config = config;
-        this.completedCallback = completedCallback;
+    constructor(configFile) {
+        this.configFile = configFile;
     }
 
     // Create a method to load the lesson
-    loadLesson() {
-        return Promise.all([
+    async loadLesson() {
+        // Load the lesson config
+        this.config = await import(
+            /* webpackInclude: /\.json$/ */
+            `./lessons/${this.configFile}`);
+        // Load the lesson content, template, animation and runner
+        await Promise.all([
             this.loadLessonContent(),
             this.loadLessonTemplate(),
             this.loadLessonAnimation(),
@@ -46,7 +50,7 @@ class Lesson {
     }
 
     async loadLessonAnimation() {
-        document.querySelector("#animation iframe").src = `./lessons/${this.config.id}/${this.config.resources.animation}`;
+        document.querySelector("#animation .view iframe").src = `./lessons/${this.config.id}/${this.config.resources.animation}`;
     }
 
     async loadLessonRunner() {
@@ -67,10 +71,12 @@ class Lesson {
             await runner.run(code, this.runner);
             // Output a message to the console indicating that the lesson has been completed
             console.log("LESSON COMPLETED");
-            // Call the completed callback function
-            this.completedCallback();
+            // Return true to indicate that the lesson has been completed
+            return true;
         } else {
             console.log("TEST FAILED");
+            // Return false to indicate that the lesson has not been completed
+            return false;
         }
     }
 

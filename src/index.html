@@ -6,27 +6,27 @@
     </head>
     <body>
         <nav class="navbar navbar-light bg-light p-3">
-            <img class="logo" src="./images/logo_UniversityOfLeeds.webp">
-            <h1 class="navbar-brand">
+            <div class="navbar-brand"></div>
+            <span class="navbar-text">
                 Learn Async JavaScript
-            </h1>
+            </span>
         </nav>
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
-                    <div id="editor"></div>
-                    <button class="btn btn-primary" id="back">Back</button>
-                    <button class="btn btn-primary" id="run">Run</button>
+                <div class="panel col-md-6" id="content">
+                    <div class="view"></div>
+                    <button class="btn btn-primary next">Next</button>
                 </div>
-                <div class="col-md-6">
-                    <div id="animation">
+                <div class="panel col-md-6" id="editor">
+                    <div class="view"></div>
+                    <button class="btn btn-primary back" id="editorBack">Back</button>
+                    <button class="btn btn-primary run" id="editorRun">Run</button>
+                </div>
+                <div class="panel col-md-6 hidden" id="animation">
+                    <div class="view">
                         <iframe></iframe>
                     </div>
-                    <button class="btn btn-primary" id="next">Next</button>
-                </div>
-                <div class="col-md-6">
-                    <div id="content"></div>
-                    <button class="btn btn-primary" id="next">Next</button>
+                    <button class="btn btn-primary next">Next</button>
                 </div>
             </div>
         </div>

@@ -12,7 +12,7 @@ class Editor {
     // Create a constructor for the Editor class
     constructor() {
         // Create a new Ace editor instance
-        this.editor = ace.edit(document.querySelector("#editor"));
+        this.editor = ace.edit(document.querySelector("#editor .view"));
         // Set the mode of the editor to JavaScript
         this.editor.session.setMode("ace/mode/javascript");
         // Set the options of the editor

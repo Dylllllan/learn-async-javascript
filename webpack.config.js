@@ -66,7 +66,7 @@ module.exports = {
         new CopyPlugin({
             patterns: [
                 // { from: "src/images", to: "images" },
-                { from: "src/lessons", to: "lessons", globOptions: { ignore: ["**/*.js"] } },
+                { from: "src/lessons", to: "lessons", globOptions: { ignore: ["**/*.js", "**/*.json"] } },
             ],
         }),
         new MiniCssExtractPlugin(),
