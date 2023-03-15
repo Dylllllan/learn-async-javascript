@@ -31,10 +31,14 @@ async function init() {
     document.getElementById("animation").appendChild(iframe);
 
     // Load the lesson test script
-    const {default: tester} = await import(`./lessons/${lesson.id}/${lesson.runner.test}.js`);
+    const {default: tester} = await import(
+        /* webpackInclude: /lessons\/.*\.js$/ */
+        `./lessons/${lesson.id}/${lesson.runner.test}`);
 
     // Load the lesson runner script
-    const {default: runnerScript} = await import(`./lessons/${lesson.id}/${lesson.runner.script}`);
+    const {default: runnerScript} = await import(
+        /* webpackInclude: /lessons\/.*\.js$/ */
+        `./lessons/${lesson.id}/${lesson.runner.script}`);
 
     // When the #run button is clicked
     document.getElementById("run").addEventListener("click", async () => {

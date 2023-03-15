@@ -45,38 +45,27 @@ module.exports = {
                 ],
             },
             {
-                test: /\.(png|jpg|jpeg|svg|gif|webp|mp3|md)$/,
-                use: [
-                    {
-                        loader: "file-loader",
-                        options: {
-                            esModule: false,
-                            outputPath: (url, resourcePath, context) => {
-                                const relativePath = path.relative(context + "/src", resourcePath);
-                                return relativePath;
-                            }
-                        }
-                    }
-                ]
+                test: /\.(png|jpg|jpeg|svg|gif|webp)$/,
+                type: "asset/resource",
+                // Output files to the images directory
+                generator: {
+                    filename: "images/[name][ext]"
+                }
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: [
-                    {
-                        loader: "file-loader",
-                        options: {
-                            name: "[name].[ext]",
-                            outputPath: "fonts/"
-                        }
-                    }
-                ]
+                type: "asset/resource",
+                // Output files to the fonts directory
+                generator: {
+                    filename: "fonts/[name][ext]"
+                }
             },
         ]
     },
     plugins: [
         new CopyPlugin({
             patterns: [
-                { from: "src/images", to: "images" },
+                // { from: "src/images", to: "images" },
                 { from: "src/lessons", to: "lessons", globOptions: { ignore: ["**/*.js"] } },
             ],
         }),

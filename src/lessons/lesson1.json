@@ -26,8 +26,8 @@
         ]
     },
     "runner": {
-        "test": "test",
-        "script": "runner",
+        "test": "test.js",
+        "script": "runner.js",
         "timeout": 10000
     }
 }
