@@ -32,8 +32,39 @@ class Runner {
     }
 
     // Create a method to test the code based on a tester script
-    test(code, tester) {
+    test(code, allowlist, tester) {
+        // Extract the sequences of words from the code
+        const sequences = this.extractSequences(code);
+        // Compare the sequences to the allowlist
+        const allowed = sequences.every(sequence => allowlist.includes(sequence));
+        // If not all sequences are allowed
+        if (!allowed) {
+            // Fail the test
+            return false;
+        }
+
+        // The test script can be used to provide more specific feedback about the code
+        // Returns true if the code passes, otherwise throws an error
         return tester(code);
+    }
+
+    // Create a method to extract the sequences of letters and numbers from a string
+    extractSequences(text) {
+        // Create a regular expression to match sequences of letters and numbers
+        const regex = /[a-zA-Z0-9]+/g;
+        // Create an array to store the sequences
+        const sequences = [];
+        // Create a variable to store the result of the regular expression
+        let result;
+
+        // While there are still matches
+        while ((result = regex.exec(text)) !== null) {
+            // Add the match to the sequences array
+            sequences.push(result[0]);
+        }
+
+        // Return the sequences array
+        return sequences;
     }
 
     // Create a method to run the code

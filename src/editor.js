@@ -117,8 +117,8 @@ class Editor {
     // Start line and end line are defined as the line numbers in the editor, not the index of the line in the array
     setEditableArea(startLine, endLine) {
         // Throw an error if the start line is greater than the end line
-        if (startLine >= endLine) {
-            throw new Error("Start line cannot be greater than or equal to end line");
+        if (startLine > endLine) {
+            throw new Error("Start line cannot be greater than end line");
         }
         // Throw an error if the start or end lines are out of range
         if (startLine < 1 || endLine > this.editor.session.getLength()) {
@@ -142,6 +142,23 @@ class Editor {
     getEditableArea() {
         // Return the contents of the editable area
         return this.editor.session.getTextRange(this.editableArea);
+    }
+
+    // Create a method to reset the editor
+    reset() {
+        // Reset the editor value
+        this.setValue("");
+        // Remove all custom completers
+        this.removeCompleters();
+        // Sets the editable area to the entire editor
+        this.setEditableArea(1, this.editor.session.getLength());
+        // Set the editor to be read-only
+        this.setReadOnly(true);
+    }
+
+    // Create a method to set whether the editor is read-only
+    setReadOnly(readOnly) {
+        this.editor.setReadOnly(readOnly);
     }
 }
 
