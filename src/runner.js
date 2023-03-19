@@ -1,3 +1,5 @@
+import editor from "./editor";
+
 // Create a new class called Runner
 class Runner {
     constructor() {
@@ -33,14 +35,20 @@ class Runner {
 
     // Create a method to test the code based on a tester script
     test(code, allowlist, tester) {
+        // Check for syntax errors in the editor
+        if (editor.hasSyntaxErrors()) {
+            // Return an error message
+            return {"success": false, "message": "There's something wrong with your code. Please try again."};
+        }
+
         // Extract the sequences of words from the code
         const sequences = this.extractSequences(code);
         // Compare the sequences to the allowlist
         const allowed = sequences.every(sequence => allowlist.includes(sequence));
         // If not all sequences are allowed
         if (!allowed) {
-            // Fail the test
-            return false;
+            // Return an error message
+            return {"success": false, "message": "There's something in here that we don't recognise. Please try again."};
         }
 
         // The test script can be used to provide more specific feedback about the code
@@ -74,8 +82,8 @@ class Runner {
                 runner(code, (request, callback = null) => {
                     // If the request type is finished
                     if (request == "finished") {
-                        // Resolve the promise
-                        resolve();
+                        // Resolve the promise with a success message
+                        resolve({"success": true});
                         return;
                     }
 

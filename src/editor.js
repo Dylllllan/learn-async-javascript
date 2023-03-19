@@ -160,6 +160,22 @@ class Editor {
     setReadOnly(readOnly) {
         this.editor.setReadOnly(readOnly);
     }
+
+    // Create a method to check whether there are syntax errors (annotations) in the editor
+    hasSyntaxErrors() {
+        // Get the annotations from the editor
+        const annotations = this.editor.session.getAnnotations();
+        // Loop through the annotations
+        for (let i = 0; i < annotations.length; i++) {
+            // If the annotation is an error
+            if (annotations[i].type == "error") {
+                // Return true
+                return true;
+            }
+        }
+        // Return false
+        return false;
+    }
 }
 
 // Create a new instance of the Editor class

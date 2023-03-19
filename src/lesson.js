@@ -65,18 +65,25 @@ class Lesson {
         const code = editor.getEditableArea();
 
         // Run the lesson test script
-        if (runner.test(code, this.config.test.allowlist, this.tester)) {
-            console.log("TEST PASSED");
-            // Run the lesson runner script
-            await runner.run(code, this.runner);
-            // Output a message to the console indicating that the lesson has been completed
-            console.log("LESSON COMPLETED");
-            // Return true to indicate that the lesson has been completed
-            return true;
+        const testResult = runner.test(code, this.config.test.allowlist, this.tester);
+
+        if (testResult.success) {
+            // Run the lesson runner script with a timeout
+            const lessonResult = await Promise.any([
+                runner.run(code, this.runner),
+                new Promise((resolve) => setTimeout(
+                    () => 
+                        resolve({
+                            "success": false,
+                            "message": "Whoops! Your code took too long to run. Check your code and make sure it follows the instructions."
+                        }),
+                    this.config.runner.timeout))
+            ]);
+            // Return the result of the lesson
+            return lessonResult;
         } else {
-            console.log("TEST FAILED");
-            // Return false to indicate that the lesson has not been completed
-            return false;
+            // Return the test result with the error message
+            return testResult;
         }
     }
 

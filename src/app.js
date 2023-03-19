@@ -38,16 +38,27 @@ class App {
 
             // Disable the run button
             document.querySelector("#editor .run").setAttribute("disabled", true);
+            // Make the editor read-only
+            editor.setReadOnly(true);
+            // Clear the error message
+            this.setErrorMessage("");
 
             // Run the animation for the current lesson
-            await this.lessons[this.currentLesson].runLessonAnimation();
+            const result = await this.lessons[this.currentLesson].runLessonAnimation();
 
             // TO-DO: Handle the end-cases of running the animation
             // Error in code, animation timeout, animation success
             // We want to show success in animation panel, errors in editor panel
 
-            // Enable the run button
-            document.querySelector("#editor .run").removeAttribute("disabled");
+            if (result.success) {
+                // Handle success
+            } else {
+                // Show the error message
+                this.setErrorMessage(result.message);
+                // Re-enable the UI by showing the editor view again
+                this.showEditorView();
+            }
+            
         });
 
         // Create a listener for the next button in the animation panel
@@ -88,6 +99,8 @@ class App {
         document.querySelector("#content").classList.remove("active");
         // Make the editor editable
         editor.setReadOnly(false);
+        // Enable the run button
+        document.querySelector("#editor .run").removeAttribute("disabled");
     }
 
     // Create a method to load the next lesson
@@ -107,6 +120,12 @@ class App {
         await this.lessons[this.currentLesson].loadLesson();
         // Show the content/editor view
         this.showContentView();
+    }
+
+    // Create a method to set the error message
+    setErrorMessage(message) {
+        // Display the error message
+        document.querySelector("#editor .error .message").innerText = message;
     }
 }
 
