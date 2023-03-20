@@ -40,8 +40,8 @@ class App {
             document.querySelector("#editor .run").setAttribute("disabled", true);
             // Make the editor read-only
             editor.setReadOnly(true);
-            // Clear the error message
-            this.setErrorMessage("");
+            // Hide the error message
+            document.querySelector("#editor .error").classList.add("hidden");
 
             // Run the animation for the current lesson
             const result = await this.lessons[this.currentLesson].runLessonAnimation();
@@ -51,10 +51,15 @@ class App {
             // We want to show success in animation panel, errors in editor panel
 
             if (result.success) {
-                // Handle success
+                // Show the animation success message
+                document.querySelector("#animation .success").classList.remove("hidden");
+                // Remove the active class from the editor panel
+                document.querySelector("#editor").classList.remove("active");
+                // Add the active class to the animation panel
+                document.querySelector("#animation").classList.add("active");
             } else {
                 // Show the error message
-                this.setErrorMessage(result.message);
+                this.showEditorError(result.message);
                 // Re-enable the UI by showing the editor view again
                 this.showEditorView();
             }
@@ -91,6 +96,8 @@ class App {
     showEditorView() {
         // Hide the content panel
         document.querySelector("#content").classList.add("hidden");
+        // Hide the animation success panel
+        document.querySelector("#animation .success").classList.add("hidden");
         // Show the animation panel
         document.querySelector("#animation").classList.remove("hidden");
         // Add the active class to the editor panel
@@ -122,8 +129,10 @@ class App {
         this.showContentView();
     }
 
-    // Create a method to set the error message
-    setErrorMessage(message) {
+    // Create a method to show the error message in the editor
+    showEditorError(message) {
+        // Show the error box
+        document.querySelector("#editor .error").classList.remove("hidden");
         // Display the error message
         document.querySelector("#editor .error .message").innerText = message;
     }

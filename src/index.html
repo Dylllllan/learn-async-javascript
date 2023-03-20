@@ -15,21 +15,34 @@
             <div class="row">
                 <div class="panel col-md-6" id="content">
                     <div class="view"></div>
-                    <button class="btn btn-primary next">Next</button>
+                    <div class="controls">
+                        <button class="btn btn-primary next right">Next</button>
+                    </div>
                 </div>
                 <div class="panel col-md-6" id="editor">
                     <div class="view"></div>
-                    <button class="btn btn-primary back" id="editorBack">Back</button>
-                    <button class="btn btn-primary run" id="editorRun">Run</button>
-                    <div class="error">
-                        <span class="message"></span>
+                    <div class="card text-white bg-danger mb-3 error hidden">
+                        <div class="card-body">
+                            <p class="card-text message"></p>
+                        </div>
+                    </div>
+                    <div class="controls hidden">
+                        <button class="btn btn-primary back left" id="editorBack">Back</button>
+                        <button class="btn btn-primary run right" id="editorRun">Run</button>
                     </div>
                 </div>
                 <div class="panel col-md-6 hidden" id="animation">
                     <div class="view">
                         <iframe></iframe>
                     </div>
-                    <button class="btn btn-primary next">Next</button>
+                    <div class="card text-white bg-success mb-3 success hidden">
+                        <div class="card-body">
+                            <p class="card-text message">Congrats! You finished the lesson.</p>
+                        </div>
+                    </div>
+                    <div class="controls hidden">
+                        <button class="btn btn-primary next right">Next</button>
+                    </div>
                 </div>
             </div>
         </div>
