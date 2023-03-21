@@ -85,6 +85,9 @@ class Lesson {
                     this.config.runner.timeout))
             ]);
             
+            // Reset the animation
+            runner.send(-1, "reset");
+
             // Return the result of the lesson
             return lessonResult;
         } else {

@@ -9,6 +9,11 @@
                 background-repeat: no-repeat;
                 background-position: center;
             }
+
+            /* Reset the animation to none */
+            [animation~="none"] {
+                animation: none;
+            }
         </style>
     </head>
 
@@ -47,8 +52,10 @@
                 var elements = document.querySelectorAll("[animation]");
                 // Loop through all elements
                 for (var i = 0; i < elements.length; i++) {
-                    // Set the animation attribute to an empty string
-                    elements[i].setAttribute("animation", "");
+                    // Set the animation attribute to none
+                    elements[i].setAttribute("animation", "none");
+                    // Remove the animation attribute
+                    elements[i].removeAttribute("animation");
                 }
             }
 

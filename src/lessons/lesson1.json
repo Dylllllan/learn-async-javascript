@@ -32,6 +32,6 @@
     "runner": {
         "script": "runner.js",
         "timeout": 10000,
-        "expected": ["catchFly", "celebrate", "finished"]
+        "expected": ["catchFly", "finished;catchFly", "celebrate", "finished;celebrate", "finished"]
     }
 }
