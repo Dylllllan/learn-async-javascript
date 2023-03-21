@@ -5,12 +5,13 @@ function deliverPackage(location) {
 
 // Deliver all the packages to their destinations in sequence
 async function deliverAll() {
-    const deliveryLocations = ["Bank", "School", "Hospital", "Government", "Library"];
+    const locations = ["Bank", "School", "Hospital", "Government", "Library"];
 
     // Hint: Use a for loop to iterate over the delivery locations
     // and deliver a package to each one
     // Hint: Use await to wait for each package to be delivered
 
+    
     
 }
 

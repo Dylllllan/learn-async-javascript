@@ -66,6 +66,32 @@ class Editor {
                 }
             }
         });
+
+        // Set a default listener for when annotations change in the editor
+        this.editor.getSession().on("changeAnnotation", () => {
+            // Get the annotations from the editor
+            const annotations = this.editor.getSession().getAnnotations();
+            // Create an array to store the filtered annotations
+            const filteredAnnotations = [];
+            
+            // Loop through the annotations
+            for (let i = 0; i < annotations.length; i++) {
+                // If the annotation is about a missing semicolon on a line containing async/await
+                const annotationLine = this.editor.session.getLine(annotations[i].row);
+                if (annotations[i].text == "Missing semicolon." && (annotationLine.includes("async") || annotationLine.includes("await"))) {
+                    // Ignore the annotation
+                    continue;
+                }
+                // Add the annotation to the filtered annotations array
+                filteredAnnotations.push(annotations[i]);
+            }
+
+            // If there are less filtered annotations than annotations
+            if (filteredAnnotations.length < annotations.length) {
+                // Update the annotations in the editor
+                this.editor.getSession().setAnnotations(filteredAnnotations);
+            }
+        });
     }
 
     // Create a method to get the value of the editor
