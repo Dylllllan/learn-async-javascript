@@ -25,6 +25,11 @@ class App {
 
         // Create a listener for the back button in the editor panel
         document.querySelector("#editor .back").addEventListener("click", () => {
+            // If the button is disabled, don't change views
+            if (document.querySelector("#editor .back").hasAttribute("disabled")) {
+                return;
+            }
+
             // Show the content/editor view
             this.showContentView();
         });
@@ -36,8 +41,9 @@ class App {
                 return;
             }
 
-            // Disable the run button
+            // Disable the run and back button
             document.querySelector("#editor .run").setAttribute("disabled", true);
+            document.querySelector("#editor .back").setAttribute("disabled", true);
             // Make the editor read-only
             editor.setReadOnly(true);
             // Hide the error message
@@ -45,10 +51,6 @@ class App {
 
             // Run the animation for the current lesson
             const result = await this.lessons[this.currentLesson].runLessonAnimation();
-
-            // TO-DO: Handle the end-cases of running the animation
-            // Error in code, animation timeout, animation success
-            // We want to show success in animation panel, errors in editor panel
 
             if (result.success) {
                 // Show the animation success message
@@ -106,8 +108,9 @@ class App {
         document.querySelector("#content").classList.remove("active");
         // Make the editor editable
         editor.setReadOnly(false);
-        // Enable the run button
+        // Enable the run and back buttons
         document.querySelector("#editor .run").removeAttribute("disabled");
+        document.querySelector("#editor .back").removeAttribute("disabled");
     }
 
     // Create a method to load the next lesson

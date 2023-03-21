@@ -1,1 +1,1 @@
-export const TOTAL_LESSONS = 1;
+export const TOTAL_LESSONS = 2;

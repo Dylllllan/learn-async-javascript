@@ -1,0 +1,25 @@
+{
+    "id": "lesson2",
+    "name": "Parallel test",
+    "objective": "Learn how to run more than one Promise at once",
+    "resources": {
+        "content": "lesson.md",
+        "code": "code.txt",
+        "animation": "animation.html"
+    },
+    "editor": {
+        "editableArea": {
+            "start": 14,
+            "end": 15
+        },
+        "completers": []
+    },
+    "test": {
+        "script": "test.js",
+        "allowlist": []
+    },
+    "runner": {
+        "script": "runner.js",
+        "timeout": 10000
+    }
+}

@@ -65,8 +65,8 @@ module.exports = {
     plugins: [
         new CopyPlugin({
             patterns: [
-                // { from: "src/images", to: "images" },
-                { from: "src/lessons", to: "lessons", globOptions: { ignore: ["**/*.js", "**/*.json"] } },
+                // Ignore all .js and .json files in the lessons directory, as well as the template folder
+                { from: "src/lessons", to: "lessons", globOptions: { ignore: ["**/*.js", "**/*.json", "template/**/*"] } },
             ],
         }),
         new MiniCssExtractPlugin(),
