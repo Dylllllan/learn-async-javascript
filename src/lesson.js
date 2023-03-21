@@ -5,7 +5,8 @@ import runner from "./runner";
 // Create a new class called Lesson
 class Lesson {
     // Create a constructor which takes the configuration object and a callback function
-    constructor(configFile) {
+    constructor(number, configFile) {
+        this.number = number;
         this.configFile = configFile;
     }
 
@@ -15,6 +16,10 @@ class Lesson {
         this.config = await import(
             /* webpackInclude: /\.json$/ */
             `./lessons/${this.configFile}`);
+        // Show the lesson number and name in the header
+        document.querySelector("#lesson-number").innerText = this.number;
+        document.querySelector("#lesson-name").innerText = this.config.name;
+        document.querySelector("#lesson-objective").innerText = this.config.objective;
         // Load the lesson content, template, animation and runner
         await Promise.all([
             this.loadLessonContent(),

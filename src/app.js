@@ -14,7 +14,7 @@ class App {
         // For each available lesson
         for (let i = 1; i <= TOTAL_LESSONS; i++) {
             // Create a new lesson and add it to the list
-            this.lessons.push(new Lesson(`lesson${i}.json`));
+            this.lessons.push(new Lesson(i, `lesson${i}.json`));
         }
 
         // Create a listener for the next button in the content panel
