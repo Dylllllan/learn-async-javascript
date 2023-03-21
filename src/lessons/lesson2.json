@@ -9,17 +9,59 @@
     },
     "editor": {
         "editableArea": {
-            "start": 14,
-            "end": 15
+            "start": 15,
+            "end": 18
         },
-        "completers": []
+        "completers": [
+            {
+                "value": "deliverPackage",
+                "score": 1,
+                "meta": "Promise"
+            },
+            {
+                "value": "await",
+                "score": 1,
+                "meta": "await keyword"
+            },
+            {
+                "value": "Promise.all",
+                "score": 1,
+                "meta": "Promise<[]>"
+            },
+            {
+                "value": "locations",
+                "score": 1,
+                "meta": "Array of strings"
+            },
+            {
+                "value": "for",
+                "score": 1,
+                "meta": "For loop"
+            },
+            {
+                "value": "let",
+                "score": 1,
+                "meta": "Declares a variable"
+            },
+            {
+                "value": "i",
+                "score": 1,
+                "meta": "For loop variable"
+            },
+            {
+                "value": "length",
+                "score": 1,
+                "meta": "Array property"
+            }
+        ]
     },
     "test": {
         "script": "test.js",
-        "allowlist": []
+        "allowlist": ["await", "Promise", "all", "deliverPackage", "locations", "for", "let", "i", "0", "length", "promises", "push"]
     },
     "runner": {
         "script": "runner.js",
-        "timeout": 10000
+        "timeout": 20000,
+        "expected": [["deliverPackage;Bank", "deliverPackage;School", "deliverPackage;Hospital", "deliverPackage;Government", "deliverPackage;Library"], ["finished;deliverPackage;Bank", "finished;deliverPackage;School", "finished;deliverPackage;Hospital", "finished;deliverPackage;Government", "finished;deliverPackage;Library"], "finished"]
     }
 }

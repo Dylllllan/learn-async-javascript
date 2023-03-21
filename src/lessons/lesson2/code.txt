@@ -11,7 +11,10 @@ async function deliverAll() {
     // and deliver a package to each one
     // Hint: Use await to wait for each package to be delivered
 
-    
+    const promises = [];
+    for (let i = 0; i < locations.length; i++) {
+        await deliverPackage(locations[i]);
+    }
     
 }
 

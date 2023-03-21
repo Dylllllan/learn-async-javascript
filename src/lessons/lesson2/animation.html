@@ -22,10 +22,12 @@
                 if (event.source != window.parent) {
                     return;
                 }
-
                 // Check the type of the message
                 switch (event.data.type) {
-                    
+                    case "deliverPackage":
+                        // Deliver the package
+                        await deliverPackage(event.data.data);
+                        break;
                     case "reset":
                         // Reset the animation
                         resetAnimation();
@@ -58,6 +60,12 @@
             function addAnimation(id, animation) {
                 document.getElementById(id).setAttribute("animation", document.getElementById(id).getAttribute("animation") + " " + animation);
             }
+
+            async function deliverPackage(location) {
+                // Wait for a random amount of time between 1 and 3 seconds
+                await wait(Math.random() * 2000 + 1000);
+            }
+
         </script>
     </body>
 </html>

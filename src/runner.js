@@ -76,34 +76,122 @@ class Runner {
     }
 
     // Create a method to run the code
-    run(code, runner) {
-        return new Promise((resolve, reject) => {
+    run(code, runner, expected) {
+        return new Promise((resolve) => {
             try {
-                runner(code, (request, callback = null) => {
+                // Store the sequence of requests in an array
+                const events = [];
+
+                runner(code, (request, callback = null, data = null) => {
+                    // Add the request and data to the events array
+                    events.push(`${request}${data ? ";" + data : ""}`);
+
+                    // If the request type is error
+                    if (request == "error") {
+                        // Resolve the promise with an error message
+                        resolve({"success": false, "message": data});
+                        return;
+                    }
+
                     // If the request type is finished
                     if (request == "finished") {
-                        // Resolve the promise with a success message
-                        resolve({"success": true});
+                        console.log(events); 
+                        
+                        // Compare the events that were run to the expected events
+                        const eventsMatch = this.compareEvents(events, expected);
+
+                        // If the events do not match
+                        if (!eventsMatch) {
+                            // Resolve the promise with an error message
+                            resolve({"success": false, "message": "The events did not run in the correct order. Please try again."});
+                            return;
+                        }
+
+                        // Resolve the promise with a success message and the events that were run
+                        resolve({"success": true, "events": events});
                         return;
                     }
 
                     // Create a new ID for the request
                     const id = this.id++;
-                    // Store the callback function in the Map
-                    this.callbacks.set(id, callback);
+
+                    // Store the callback function in a wrapper which logs when the event is finished
+                    this.callbacks.set(id, () => {
+                        events.push(`finished;${request}${data ? ";" + data : ""}`);
+                        callback();
+                    });
+
                     // Send the request to the iframe
-                    this.send(id, request);
+                    this.send(id, request, data);
                 });
             } catch (error) {
-                reject(error);
+                // Resolve the promise with the error message 
+                resolve({"success": false, "message": error.message});
             }
         });
     }
 
     // Send messages to the iframe
-    send(id, type) {
+    send(id, type, data = null) {
         const iframe = document.querySelector("iframe");
-        iframe.contentWindow.postMessage({id, type}, "*");
+        iframe.contentWindow.postMessage({id, type, data}, "*");
+    }
+
+    // Create a method to compare the events that were run to the expected
+    compareEvents(events, expected) {
+        let currentEvent = 0;
+
+        // Loop through the expected events
+        for (let i = 0; i < expected.length; i++) {
+            // If the expected event is an array
+            if (Array.isArray(expected[i])) {
+                // While the expected event is a non-empty array
+                while (expected[i].length > 0) {
+                    // If the current event pointer exceeds the length of the events array
+                    if (currentEvent >= events.length) {
+                        // Return false as there are no more events to check
+                        return false;
+                    }
+                    
+                    // If the current event is in the array
+                    if (expected[i].includes(events[currentEvent])) {
+                        // Remove the event from the array
+                        expected[i].splice(expected[i].indexOf(events[currentEvent]), 1);
+
+                        // Move to the next event
+                        currentEvent++;
+                    } else {
+                        // Return false if the event is not in the array
+                        return false;
+                    }
+                }
+            } else {
+                // Otherwise, check if the current event matches the expected event
+
+                // If the current event pointer exceeds the length of the events array
+                if (currentEvent >= events.length) {
+                    // Return false as there are no more events to check
+                    return false;
+                }
+
+                if (events[currentEvent] != expected[i]) {
+                    // Return false if the events do not match
+                    return false;
+                }
+
+                // If the events match, move to the next event
+                currentEvent++;
+            }
+        }
+
+        // If the current event pointer is less than the length of the events array
+        if (currentEvent < events.length) {
+            // Return false as there are more events than expected
+            return false;
+        }
+
+        // Return true if all events match the expected events
+        return true;
     }
 }
 

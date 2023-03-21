@@ -75,7 +75,7 @@ class Lesson {
         if (testResult.success) {
             // Run the lesson runner script with a timeout
             const lessonResult = await Promise.any([
-                runner.run(code, this.runner),
+                runner.run(code, this.runner, this.config.runner.expected),
                 new Promise((resolve) => setTimeout(
                     () => 
                         resolve({
@@ -84,6 +84,7 @@ class Lesson {
                         }),
                     this.config.runner.timeout))
             ]);
+            
             // Return the result of the lesson
             return lessonResult;
         } else {

@@ -1,4 +1,4 @@
-import { TOTAL_LESSONS } from "./const.js";
+import { TOTAL_LESSONS, START_LESSON } from "./const.js";
 
 import editor from "./editor.js";
 import Lesson from "./lesson.js";
@@ -9,7 +9,7 @@ class App {
         // Create a list of lessons
         this.lessons = [];
         // Create a counter for the current lesson
-        this.currentLesson = -1;
+        this.currentLesson = START_LESSON - 1;
 
         // For each available lesson
         for (let i = 1; i <= TOTAL_LESSONS; i++) {
