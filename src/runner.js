@@ -95,15 +95,15 @@ class Runner {
 
                     // If the request type is finished
                     if (request == "finished") {
-                        console.log(events); 
-                        
                         // Compare the events that were run to the expected events
                         const eventsMatch = this.compareEvents(events, expected);
 
                         // If the events do not match
                         if (!eventsMatch) {
+                            // TO-DO: Implement feedback based on the ordering of events
+
                             // Resolve the promise with an error message
-                            resolve({"success": false, "message": "The events did not run in the correct order. Please try again."});
+                            resolve({"success": false, "message": "Your program didn't run in the correct order. Please try again."});
                             return;
                         }
 

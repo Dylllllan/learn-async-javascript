@@ -1,7 +1,7 @@
 {
     "id": "lesson2",
-    "name": "Parallel test",
-    "objective": "Learn how to run more than one Promise at once",
+    "name": "Delivery Day",
+    "objective": "Learn how to wait for more than one Promise to finish",
     "resources": {
         "content": "lesson.md",
         "code": "code.txt",
@@ -9,8 +9,8 @@
     },
     "editor": {
         "editableArea": {
-            "start": 15,
-            "end": 18
+            "start": 14,
+            "end": 20
         },
         "completers": [
             {
@@ -32,6 +32,16 @@
                 "value": "locations",
                 "score": 1,
                 "meta": "Array of strings"
+            },
+            {
+                "value": "deliveries",
+                "score": 1,
+                "meta": "Array of Promises"
+            },
+            {
+                "value": "push",
+                "score": 1,
+                "meta": "Array method"
             },
             {
                 "value": "for",
@@ -57,7 +67,7 @@
     },
     "test": {
         "script": "test.js",
-        "allowlist": ["await", "Promise", "all", "deliverPackage", "locations", "for", "let", "i", "0", "length", "promises", "push"]
+        "allowlist": ["await", "Promise", "all", "deliverPackage", "locations", "for", "let", "i", "0", "length", "deliveries", "push", "const"]
     },
     "runner": {
         "script": "runner.js",

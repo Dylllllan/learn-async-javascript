@@ -1,6 +1,6 @@
 export default (code, request) => {    
     function deliverPackage(location) {
-        const locations = ["Bank", "School", "Hospital", "Government", "Library"];
+        const locations = ["Library", "Government", "Hospital", "Bank", "School"];
         if (!locations.includes(location)) {
             request("error", null, `Invalid location: ${location}`);
         }

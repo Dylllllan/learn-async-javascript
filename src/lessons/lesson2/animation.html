@@ -10,15 +10,185 @@
                 background-position: center;
             }
 
+            .scene {
+                position: fixed;
+                
+                width: 100vw;
+                /* Use a 4:3 aspect ratio */
+                height: calc((3/4) * 100vw);
+                
+                top: 50%;
+                transform: translateY(-50%);
+
+                --column-spacing: 13%;
+            }
+
+            .truck {
+                position: absolute;
+                width: 10%;
+                height: 10%;
+
+                background-image: url("./images/truck.png");
+                background-size: contain;
+                background-repeat: no-repeat;
+
+                z-index: 2;
+            }
+            .building {
+                position: absolute;
+                width: 12%;
+                height: 12%;
+            }
+
+            #truck1 {
+                bottom: 10%;
+                left: calc(var(--column-spacing) * 1);
+            }
+            #truck2 {
+                bottom: 10%;
+                left: calc(var(--column-spacing) * 2);
+            }
+            #truck3 {
+                bottom: 10%;
+                left: calc(var(--column-spacing) * 3);
+            }
+            #truck4 {
+                bottom: 10%;
+                left: calc(var(--column-spacing) * 4);
+            }
+            #truck5 {
+                bottom: 10%;
+                left: calc(var(--column-spacing) * 5);
+            }
+
+            #factory {
+                background-image: url("./images/factory.png");
+                bottom: 10%;
+                left: 80%;
+
+                width: 15%;
+                height: 15%;
+            }
+
+            #library {
+                background-image: url("./images/library.png");
+                bottom: 20%;
+                left: calc(var(--column-spacing) * 1 - 1%);
+            }
+            #government {
+                background-image: url("./images/government.png");
+                bottom: 80%;
+                left: calc(var(--column-spacing) * 2 - 1%);
+            }
+            #hospital {
+                background-image: url("./images/hospital.png");
+                bottom: 50%;
+                left: calc(var(--column-spacing) * 3 - 1%);
+            }
+            #bank {
+                background-image: url("./images/bank.png");
+                bottom: 30%;
+                left: calc(var(--column-spacing) * 4 - 1%);
+            }
+            #school {
+                background-image: url("./images/school.png");
+                bottom: 60%;
+                left: calc(var(--column-spacing) * 5 - 1%);
+            }
+
             /* Reset the animation to none */
             [animation~="none"] {
                 animation: none;
+            }
+
+            /* Animate a truck going to the library */
+            @keyframes truckToLibrary {
+                0% {
+                    bottom: 10%;
+                }
+                100% {
+                    bottom: 20%;
+                }
+            }
+            [animation~="truck1"] {
+                animation: truckToLibrary 1s ease-in-out;
+                animation-fill-mode: forwards;
+            }
+
+            /* Animate a truck going to the government */
+            @keyframes truckToGovernment {
+                0% {
+                    bottom: 10%;
+                }
+                100% {
+                    bottom: 80%;
+                }
+            }
+            [animation~="truck2"] {
+                animation: truckToGovernment 7s ease-in-out;
+                animation-fill-mode: forwards;
+            }
+
+            /* Animate a truck going to the hospital */
+            @keyframes truckToHospital {
+                0% {
+                    bottom: 10%;
+                }
+                100% {
+                    bottom: 50%;
+                }
+            }
+            [animation~="truck3"] {
+                animation: truckToHospital 4s ease-in-out;
+                animation-fill-mode: forwards;
+            }
+
+            /* Animate a truck going to the bank */
+            @keyframes truckToBank {
+                0% {
+                    bottom: 10%;
+                }
+                100% {
+                    bottom: 30%;
+                }
+            }
+            [animation~="truck4"] {
+                animation: truckToBank 2s ease-in-out;
+                animation-fill-mode: forwards;
+            }
+
+            /* Animate a truck going to the school */
+            @keyframes truckToSchool {
+                0% {
+                    bottom: 10%;
+                }
+                100% {
+                    bottom: 60%;
+                }
+            }
+            [animation~="truck5"] {
+                animation: truckToSchool 5s ease-in-out;
+                animation-fill-mode: forwards;
             }
         </style>
     </head>
 
     <body>
-        
+        <div class="scene">
+            <div class="truck" id="truck1"></div>
+            <div class="truck" id="truck2"></div>
+            <div class="truck" id="truck3"></div>
+            <div class="truck" id="truck4"></div>
+            <div class="truck" id="truck5"></div>
+
+            <div class="building" id="library"></div>
+            <div class="building" id="government"></div>
+            <div class="building" id="hospital"></div>
+            <div class="building" id="bank"></div>
+            <div class="building" id="school"></div>
+
+            <div class="building" id="factory"></div>
+        </div>
 
         <script>
             // Setup a listener to listen to messages from the parent window
@@ -69,8 +239,17 @@
             }
 
             async function deliverPackage(location) {
-                // Wait for a random amount of time between 1 and 3 seconds
-                await wait(Math.random() * 2000 + 1000);
+                const locations = ["library", "government", "hospital", "bank", "school"];
+                const durations = [1, 7, 4, 2, 5];
+                
+                // Get the index of the truck delivering to the location
+                const truckIndex = locations.indexOf(location.toLowerCase()) + 1;
+
+                // Add the animation to the truck
+                addAnimation("truck" + truckIndex, "truck" + truckIndex);
+
+                // Wait for the duration of the animation
+                await wait(durations[truckIndex - 1] * 1000);
             }
 
         </script>

@@ -35,6 +35,11 @@ class Editor {
                 // Move the start anchor to the start of the line
                 this.startAnchor.setPosition(this.startAnchor.row, 0);
             }
+            // If the end anchor is not at the end of a line
+            if (this.endAnchor.column != this.editor.session.getLine(this.endAnchor.row).length) {
+                // Move the end anchor to the end of the line
+                this.endAnchor.setPosition(this.endAnchor.row, this.editor.session.getLine(this.endAnchor.row).length);
+            }
 
             // Get the cursor position
             const cursor = this.editor.getCursorPosition();
