@@ -31,21 +31,36 @@
     },
     "runner": {
         "script": "runner.js",
-        "timeout": 10000,
-        "expected": ["catchFly", "finished;catchFly", "celebrate", "finished;celebrate", "finished"]
+        "timeout": 10000
     },
     "feedback": [
         {
-            "events": [["catchFly", "celebrate"], "finished;catchFly", "finished"],
-            "message": "You caught the fly and celebrated at the same time. Try again giving just the callback function's name."
+            "events": ["catchFly", "finished;catchFly", "celebrate", "finished;celebrate", "finished"],
+            "result": {
+                "success": true,
+                "message": "Congrats! You completed the lesson."
+            }
+        },
+        {
+            "events": [["catchFly", "celebrate"], "finished;celebrate", "finished"],
+            "result": {
+                "success": false,
+                "message": "You caught the fly and celebrated at the same time. Try again by giving celebrate as an argument to catchFly."
+            }
         },
         {
             "events": ["catchFly", "finished;catchFly"],
-            "message": "You caught the fly, but you didn't celebrate. Try again giving the callback function as an argument."
+            "result": {
+                "success": false,
+                "message": "You caught the fly, but you didn't celebrate. Try again giving the callback function as an argument."
+            }
         },
         {
             "events": ["celebrate", "finished;celebrate", "finished"],
-            "message": "You celebrated without catching the fly first. Try again."
+            "result": {
+                "success": false,
+                "message": "You celebrated, but you didn't catch the fly first. Try again."
+            }
         }
     ]
 }

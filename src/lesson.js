@@ -74,26 +74,45 @@ class Lesson {
 
         if (testResult.success) {
             // Run the lesson runner script with a timeout
-            const lessonResult = await Promise.any([
-                runner.run(code, this.runner, this.config.runner.expected),
-                new Promise((resolve) => setTimeout(
-                    () => 
-                        resolve({
-                            "success": false,
-                            "message": "Whoops! Your code took too long to run. Check your code and make sure it follows the instructions."
-                        }),
-                    this.config.runner.timeout))
-            ]);
+            const codeResult = await runner.run(code, this.runner, this.config.runner.timeout);
             
-            // Reset the animation
-            runner.send(-1, "reset");
+            // Get the lesson result from the events run, or fallback to the code result
+            const lessonResult = this.getLessonResult(codeResult.events) || codeResult;
 
-            // Return the result of the lesson
+            // If the lesson wasn't successful
+            if (!lessonResult.success) {
+                // Reset the animation
+                runner.send(-1, "reset");
+            }
+            
+            // Return the lesson result
             return lessonResult;
         } else {
             // Return the test result with the error message
             return testResult;
         }
+    }
+
+    getLessonResult(events) {
+        // If no events were provided, return null
+        if (!events) {
+            return null;
+        }
+
+        // For each sequence of events that feedback can be provided on
+        for (let i = 0; i < this.config.feedback.length; i++) {
+            // Get the sequence of events for the feedback
+            const expectedEvents = this.config.feedback[i].events;
+
+            // Compare the sequence of events to the events in the lesson result
+            if (runner.compareEvents(events, expectedEvents)) {
+                // If the sequence of events matches, return the corresponding result
+                return this.config.feedback[i].result;
+            }
+        }
+
+        // If no sequence of events matches, return null
+        return null;
     }
 
     async loadScript(fileName) {

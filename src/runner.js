@@ -76,37 +76,39 @@ class Runner {
     }
 
     // Create a method to run the code
-    run(code, runner, expected) {
-        return new Promise((resolve) => {
-            try {
-                // Store the sequence of requests in an array
-                const events = [];
+    run(code, runner, timeout) {
+        // Store the sequence of requests in an array
+        const events = [];
 
+        // Create a new Promise that resolves when the timeout is reached
+        const timeoutPromise = new Promise((resolve) => setTimeout(
+            () => 
+                // Resolve the promise with an error message and the events that were run
+                // In most cases, this will be overriden by feedback based on the events
+                resolve({
+                    "success": false,
+                    "message": "Timeout! Your code took too long to run. Make sure it follows the instructions and then try again.",
+                    "events": events
+                }),
+            timeout));
+
+        // Create a new Promise that resolves when the code is run or an error occurs
+        const codePromise = new Promise((resolve) => {
+            try {
                 runner(code, (request, callback = null, data = null) => {
                     // Add the request and data to the events array
                     events.push(`${request}${data ? ";" + data : ""}`);
 
                     // If the request type is error
                     if (request == "error") {
-                        // Resolve the promise with an error message
-                        resolve({"success": false, "message": data});
+                        // Resolve the promise with an error message and the events that were run
+                        // This is provided by the runner and should be human-readable
+                        resolve({"success": false, "message": data, "events": events});
                         return;
                     }
 
                     // If the request type is finished
                     if (request == "finished") {
-                        // Compare the events that were run to the expected events
-                        const eventsMatch = this.compareEvents(events, expected);
-
-                        // If the events do not match
-                        if (!eventsMatch) {
-                            // TO-DO: Implement feedback based on the ordering of events
-                            
-                            // Resolve the promise with an error message
-                            resolve({"success": false, "message": "Your program didn't run in the correct order. Please try again."});
-                            return;
-                        }
-
                         // Resolve the promise with a success message and the events that were run
                         resolve({"success": true, "events": events});
                         return;
@@ -126,9 +128,12 @@ class Runner {
                 });
             } catch (error) {
                 // Resolve the promise with the error message 
-                resolve({"success": false, "message": error.message});
+                resolve({"success": false, "message": `An unexpected error occurred: ${error.message}`, "events": events});
             }
         });
+
+        // Return a Promise that resolves when either the timeout or code Promise resolves
+        return Promise.any([timeoutPromise, codePromise]);
     }
 
     // Send messages to the iframe
