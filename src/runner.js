@@ -101,7 +101,7 @@ class Runner {
                         // If the events do not match
                         if (!eventsMatch) {
                             // TO-DO: Implement feedback based on the ordering of events
-
+                            
                             // Resolve the promise with an error message
                             resolve({"success": false, "message": "Your program didn't run in the correct order. Please try again."});
                             return;
@@ -138,8 +138,11 @@ class Runner {
     }
 
     // Create a method to compare the events that were run to the expected
-    compareEvents(events, expected) {
+    compareEvents(events, expectedEvents) {
+        // Create a pointer to the current event in the events array
         let currentEvent = 0;
+        // Create a deep copy of the expected events array
+        const expected = JSON.parse(JSON.stringify(expectedEvents));
 
         // Loop through the expected events
         for (let i = 0; i < expected.length; i++) {

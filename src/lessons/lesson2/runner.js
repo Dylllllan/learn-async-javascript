@@ -11,15 +11,10 @@ export default (code, request) => {
     // Wrap the code in a self-executing async function so we can use await
     eval(`(
     async () => {
-        const locations = ["Bank", "School", "Hospital", "Government", "Library"];
+        const locations = ["Library", "Government", "Hospital", "Bank", "School"];
 
-        try {
-            const promises = [];
-            ${code}
-        } catch (error) {
-            request("error", null, error.message);
-        }
-
+        ${code};
+        
         request("finished");
     }
     )();`);

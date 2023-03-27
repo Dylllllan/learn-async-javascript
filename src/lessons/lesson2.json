@@ -73,5 +73,15 @@
         "script": "runner.js",
         "timeout": 20000,
         "expected": [["deliverPackage;Bank", "deliverPackage;School", "deliverPackage;Hospital", "deliverPackage;Government", "deliverPackage;Library"], ["finished;deliverPackage;Bank", "finished;deliverPackage;School", "finished;deliverPackage;Hospital", "finished;deliverPackage;Government", "finished;deliverPackage;Library"], "finished"]
-    }
+    },
+    "feedback": [
+        {
+            "events": [["deliverPackage;Bank", "deliverPackage;School", "deliverPackage;Hospital", "deliverPackage;Government", "deliverPackage;Library"], "finished"],
+            "message": "You didn't wait for the packages to finish being delivered. Try using await to wait for them to finish."
+        },
+        {
+            "events": ["deliverPackage;Library", "finished;deliverPackage;Library", "deliverPackage;Government", "finished;deliverPackage;Government", "deliverPackage;Hospital", "finished;deliverPackage;Hospital", "deliverPackage;Bank", "finished;deliverPackage;Bank", "deliverPackage;School", "finished;deliverPackage;School", "finished"],
+            "message": "You delivered each package one after the other. Try using Promise.all() to deliver them all at the same time."
+        }
+    ]
 }

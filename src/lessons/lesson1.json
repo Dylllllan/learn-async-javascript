@@ -33,5 +33,19 @@
         "script": "runner.js",
         "timeout": 10000,
         "expected": ["catchFly", "finished;catchFly", "celebrate", "finished;celebrate", "finished"]
-    }
+    },
+    "feedback": [
+        {
+            "events": [["catchFly", "celebrate"], "finished;catchFly", "finished"],
+            "message": "You caught the fly and celebrated at the same time. Try again giving just the callback function's name."
+        },
+        {
+            "events": ["catchFly", "finished;catchFly"],
+            "message": "You caught the fly, but you didn't celebrate. Try again giving the callback function as an argument."
+        },
+        {
+            "events": ["celebrate", "finished;celebrate", "finished"],
+            "message": "You celebrated without catching the fly first. Try again."
+        }
+    ]
 }
