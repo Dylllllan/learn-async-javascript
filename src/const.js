@@ -1,3 +1,3 @@
-export const TOTAL_LESSONS = 2;
+export const TOTAL_LESSONS = 3;
 
 export const START_LESSON = 0;

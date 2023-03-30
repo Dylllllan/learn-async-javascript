@@ -1,0 +1,166 @@
+<html>
+    <head>
+        <style type="text/css">
+            body {
+                margin: 0;
+            }
+            div {
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+
+            .scene {
+                position: fixed;
+                background-image: url("./images/room.jpg");
+                
+                width: 100vw;
+                /* Maintain 4:3 aspect ratio */
+                height: calc((3/4) * 100vw);
+
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .character {
+                position: absolute;
+            }
+
+            .character {
+                width: 12%;
+                height: 12%;
+            }
+            .character#cat {
+                background-image: url("./images/cat.png");
+                bottom: 20%;
+                right: 5%;
+            }
+            .character#mouse {
+                background-image: url("./images/mouse.png");
+                bottom: 20%;
+                left: 30%;
+            }
+
+            /* Create an animation for the mouse running away */
+            @keyframes mouseRun {
+                0% {
+                    left: 30%;
+                }
+                100% {
+                    left: -12%;
+                }
+            }
+            [animation~="mouseRun"] {
+                animation: mouseRun 1s ease-in-out;
+                animation-fill-mode: forwards;
+            }
+
+            /* Create an animation for the cat chasing the mouse */
+            @keyframes catChase {
+                0% {
+                    right: 5%;
+                }
+                100% {
+                    right: 70%;
+                }
+            }
+            [animation~="catChase"] {
+                animation: catChase 2s ease-in-out;
+                animation-delay: 1s;
+                background-image: url("./images/cat_catch.png") !important;
+                animation-fill-mode: forwards;
+            }
+
+            /* Create a state for the cat crying */
+            [animation~="catCry"] {
+                background-image: url("./images/cat_cry.png") !important;
+                right: 70% !important;
+            }
+
+            /* Reset the animation to none */
+            [animation~="none"] {
+                animation: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="scene">
+            <div class="character" id="cat"></div>
+            <div class="character" id="mouse"></div>
+        </div>
+
+        <script>
+            // Setup a listener to listen to messages from the parent window
+            window.addEventListener("message", async function(event) {
+                // Check that the message is coming from the parent window
+                if (event.source != window.parent) {
+                    return;
+                }
+
+                // Check the type of the message
+                switch (event.data.type) {
+                    
+                    case "reset":
+                        // Reset the animation
+                        resetAnimation();
+                        break;
+                }
+
+                // Send a message back to the parent window with the message ID
+                window.parent.postMessage({
+                    type: "finished",
+                    id: event.data.id
+                }, "*");
+            });
+
+            // Function to reset all animation attributes on all objects
+            function resetAnimation() {
+                // Get all elements with the animation attribute
+                var elements = document.querySelectorAll("[animation]");
+                // Loop through all elements
+                for (var i = 0; i < elements.length; i++) {
+                    // Set the animation attribute to none
+                    elements[i].setAttribute("animation", "none");
+                    // Remove the animation attribute
+                    elements[i].removeAttribute("animation");
+                }
+            }
+
+            function wait(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+            // Function to add an animation to the animation attribute of an element by its ID
+            function addAnimation(id, animation) {
+                document.getElementById(id).setAttribute("animation", (document.getElementById(id).getAttribute("animation") || "") + " " + animation);
+            }
+
+            function removeAnimation(id, animation) {
+                document.getElementById(id).setAttribute("animation", document.getElementById(id).getAttribute("animation").replace(animation, ""));
+            }
+
+            // Function to run the animation sequence
+            async function runAnimation() {
+                // Wait for 500ms
+                await wait(500);
+                // Add the catChase animation to the cat
+                addAnimation("cat", "catChase");
+                // Wait for 2 seconds
+                await wait(2000);
+                // Add the mouseRun animation to the mouse
+                addAnimation("mouse", "mouseRun");
+                // Wait for 1 second
+                await wait(1000);
+                // Add the catCry animation to the cat
+                addAnimation("cat", "catCry");
+                // Remove the catChase animation from the cat
+                removeAnimation("cat", "catChase");
+            }
+
+            // Run the animation sequence
+            runAnimation();
+        </script>
+    </body>
+</html>

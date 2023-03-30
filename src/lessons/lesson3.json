@@ -1,0 +1,50 @@
+{
+    "id": "lesson3",
+    "name": "The Cat And The Mouse",
+    "objective": "Learn how to catch and handle errors with Promises",
+    "resources": {
+        "content": "lesson.md",
+        "code": "code.txt",
+        "animation": "animation.html"
+    },
+    "editor": {
+        "editableArea": {
+            "start": 9,
+            "end": 10
+        },
+        "completers": [
+            {
+                "value": "catch",
+                "score": 1,
+                "meta": "catch keyword"
+            },
+            {
+                "value": "try",
+                "score": 1,
+                "meta": "try keyword"
+            },
+            {
+                "value": "await",
+                "score": 1,
+                "meta": "await keyword"
+            }
+        ]
+    },
+    "test": {
+        "script": "test.js",
+        "allowlist": ["await", "catch", "try"]
+    },
+    "runner": {
+        "script": "runner.js",
+        "timeout": 20000
+    },
+    "feedback": [
+        {
+            "events": [],
+            "result": {
+                "success": true,
+                "message": "Congrats! You completed the lesson."
+            }
+        }
+    ]
+}

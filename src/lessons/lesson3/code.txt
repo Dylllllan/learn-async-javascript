@@ -1,0 +1,9 @@
+// Code template provided to a learner
+
+// An example function
+function example() {
+    // Add notes in comments for what the function does
+}
+
+// Add instructions for the learner to add in the editable area
+
