@@ -1,9 +1,32 @@
-// Code template provided to a learner
-
-// An example function
-function example() {
-    // Add notes in comments for what the function does
+// A function that is called to make the cat run towards the mouse
+async function runToMouse() {
+    // Returns a promise that resolves when the cat reaches the mouse
 }
 
-// Add instructions for the learner to add in the editable area
+// A function that is called when the cat is near the mouse
+async function catchMouse() {
+    // Returns a promise that resolves when the cat has caught the mouse
+    // The promise rejects with "Escaped" if the mouse has escaped
+}
+
+// A function that is called to handle any errors
+function cry() {
+    // The cat cries when the mouse has escaped
+}
+
+async function catCatchesMouse() {
+    // Write a short program for the cat to catch the mouse
+    // Hint: Make sure you handle what happens when the mouse escapes
+
+    try {
+        
+    } catch (error) {
+        
+    }
+    
+}
+
+// Start the cat catching the mouse
+catCatchesMouse();
+
 

@@ -71,11 +71,13 @@
                 background-image: url("./images/cat_catch.png") !important;
                 animation-fill-mode: forwards;
             }
+            [animation~="catChaseDone"] {
+                right: 70% !important;
+            }
 
             /* Create a state for the cat crying */
             [animation~="catCry"] {
                 background-image: url("./images/cat_cry.png") !important;
-                right: 70% !important;
             }
 
             /* Reset the animation to none */
@@ -92,6 +94,9 @@
         </div>
 
         <script>
+            // Add a timestamp for the last time the animations were reset
+            let lastReset = 0;
+
             // Setup a listener to listen to messages from the parent window
             window.addEventListener("message", async function(event) {
                 // Check that the message is coming from the parent window
@@ -101,7 +106,18 @@
 
                 // Check the type of the message
                 switch (event.data.type) {
-                    
+                    case "runToMouse":
+                        // Run the runToMouse function
+                        await runToMouse();
+                        break;
+                    case "catchMouse":
+                        // Run the catchMouse function
+                        await catchMouse();
+                        break;
+                    case "cry":
+                        // Run the cry function
+                        await cry();
+                        break;
                     case "reset":
                         // Reset the animation
                         resetAnimation();
@@ -126,6 +142,8 @@
                     // Remove the animation attribute
                     elements[i].removeAttribute("animation");
                 }
+                // Set the last reset time to the current time
+                lastReset = Date.now();
             }
 
             function wait(ms) {
@@ -133,34 +151,53 @@
             }
 
             // Function to add an animation to the animation attribute of an element by its ID
-            function addAnimation(id, animation) {
-                document.getElementById(id).setAttribute("animation", (document.getElementById(id).getAttribute("animation") || "") + " " + animation);
+            function addAnimation(id, animation, animationTime = Date.now()) {
+                // If the animation time is after the last reset time
+                if (animationTime > lastReset) {
+                    // Add the animation to the animation attribute
+                    document.getElementById(id).setAttribute("animation", (document.getElementById(id).getAttribute("animation") || "") + " " + animation);
+                }
             }
 
-            function removeAnimation(id, animation) {
-                document.getElementById(id).setAttribute("animation", document.getElementById(id).getAttribute("animation").replace(animation, ""));
+            function removeAnimation(id, animation, animationTime = Date.now()) {
+                // If the animation date is after the last reset time
+                if (animationTime > lastReset) {
+                    // Remove the animation to the animation attribute
+                    document.getElementById(id).setAttribute("animation", document.getElementById(id).getAttribute("animation").replace(animation, ""));
+                }
             }
 
-            // Function to run the animation sequence
-            async function runAnimation() {
+            async function runToMouse() {
+                // Create a constant for the current time
+                const animationTime = Date.now();
                 // Wait for 500ms
                 await wait(500);
                 // Add the catChase animation to the cat
-                addAnimation("cat", "catChase");
+                addAnimation("cat", "catChase", animationTime);
                 // Wait for 2 seconds
                 await wait(2000);
                 // Add the mouseRun animation to the mouse
-                addAnimation("mouse", "mouseRun");
+                addAnimation("mouse", "mouseRun", animationTime);
                 // Wait for 1 second
                 await wait(1000);
-                // Add the catCry animation to the cat
-                addAnimation("cat", "catCry");
-                // Remove the catChase animation from the cat
-                removeAnimation("cat", "catChase");
+                // Add the catChaseDone animation state to the cat
+                addAnimation("cat", "catChaseDone", animationTime);
             }
 
-            // Run the animation sequence
-            runAnimation();
+            async function catchMouse() {
+                // If the mouse hasn't got any animations
+                if (!document.getElementById("mouse").getAttribute("animation")) {
+                    // Add the mouseRun animation to the mouse
+                    addAnimation("mouse", "mouseRun");
+                }
+            }
+
+            async function cry() {
+                // Add the catCry animation to the cat
+                addAnimation("cat", "catCry");
+                // Wait for 1 second
+                await wait(1000);
+            }
         </script>
     </body>
 </html>

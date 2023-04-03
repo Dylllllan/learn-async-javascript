@@ -9,8 +9,8 @@
     },
     "editor": {
         "editableArea": {
-            "start": 9,
-            "end": 10
+            "start": 21,
+            "end": 26
         },
         "completers": [
             {
@@ -27,23 +27,80 @@
                 "value": "await",
                 "score": 1,
                 "meta": "await keyword"
+            },
+            {
+                "value": "runToMouse",
+                "score": 1,
+                "meta": "Promise"
+            },
+            {
+                "value": "catchMouse",
+                "score": 1,
+                "meta": "Promise"
+            },
+            {
+                "value": "cry",
+                "score": 1,
+                "meta": "Promise"
             }
         ]
     },
     "test": {
         "script": "test.js",
-        "allowlist": ["await", "catch", "try"]
+        "allowlist": ["await", "catch", "try", "runToMouse", "catchMouse", "cry", "if", "Escaped", "error"]
     },
     "runner": {
         "script": "runner.js",
-        "timeout": 20000
+        "timeout": 5000
     },
     "feedback": [
         {
-            "events": [],
+            "events": ["runToMouse", "finished;runToMouse", "catchMouse", "finished;catchMouse", "cry", "finished;cry", "finished"],
             "result": {
                 "success": true,
-                "message": "Congrats! You completed the lesson."
+                "message": "Congrats! You handled the mouse escaping from the cat correctly."
+            }
+        },
+        {
+            "events": ["catchMouse", "finished;catchMouse", "cry", "finished;cry", "finished"],
+            "result": {
+                "success": true,
+                "message": "Congrats! You handled the mouse escaping from the cat correctly. (The cat could've tried running to the mouse first though)"
+            }
+        },
+        {
+            "events": ["catchMouse", "finished;catchMouse"],
+            "result": {
+                "success": false,
+                "message": "The cat should cry after the mouse escapes.\nUse await to make sure we wait for the result of catching the mouse.\nAdd code to the catch block to handle any errors."
+            }
+        },
+        {
+            "events": ["runToMouse", "finished;runToMouse", "catchMouse", "finished;catchMouse"],
+            "result": {
+                "success": false,
+                "message": "The cat should cry after the mouse escapes.\nUse await to make sure we wait for the result of catching the mouse.\nAdd code to the catch block to handle any errors."
+            }
+        },
+        {
+            "events": ["runToMouse", "catchMouse", "finished;catchMouse", "cry", "finished;cry", "finished"],
+            "result": {
+                "success": false,
+                "message": "The cat should finish running to the mouse before trying to catch it. Try again using the await keyword."
+            }
+        },
+        {
+            "events": [["runToMouse", "catchMouse"], "finished;catchMouse", "finished;runToMouse"],
+            "result": {
+                "success": false,
+                "message": "The cat should finish running to the mouse before trying to catch it. Try again using the await keyword."
+            }
+        },
+        {
+            "events": ["runToMouse", "finished;runToMouse"],
+            "result": {
+                "success": false,
+                "message": "You didn't try to catch the mouse. Try again using the catchMouse function. Remember to catch any errors!"
             }
         }
     ]

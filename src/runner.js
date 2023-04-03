@@ -79,6 +79,8 @@ class Runner {
     run(code, runner, timeout) {
         // Store the sequence of requests in an array
         const events = [];
+        // Create a flag for whether the code has finished running
+        let finished = false;
 
         // Create a new Promise that resolves when the timeout is reached
         const timeoutPromise = new Promise((resolve) => setTimeout(
@@ -96,6 +98,12 @@ class Runner {
         const codePromise = new Promise((resolve) => {
             try {
                 runner(code, (request, callback = null, data = null) => {
+                    // If the code has finished running
+                    if (finished) {
+                        // Return to stop the code from running 
+                        return;
+                    }
+
                     // Add the request and data to the events array
                     events.push(`${request}${data ? ";" + data : ""}`);
 
@@ -111,6 +119,9 @@ class Runner {
                     if (request == "finished") {
                         // Resolve the promise with a success message and the events that were run
                         resolve({"success": true, "events": events});
+                        // Set the finished flag to true
+                        finished = true;
+                        // Return to stop the code from running
                         return;
                     }
 
@@ -120,7 +131,9 @@ class Runner {
                     // Store the callback function in a wrapper which logs when the event is finished
                     this.callbacks.set(id, () => {
                         events.push(`finished;${request}${data ? ";" + data : ""}`);
-                        callback();
+                        if (callback) {
+                            callback();
+                        }
                     });
 
                     // Send the request to the iframe

@@ -1,4 +1,4 @@
-// Delivers a package to the specified location
+// A function that delivers a package to the specified location
 function deliverPackage(location) {
     // Returns a promise that resolves when the package is delivered
 }
