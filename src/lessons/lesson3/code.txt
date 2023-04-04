@@ -9,13 +9,13 @@ async function catchMouse() {
     // The promise rejects with "Escaped" if the mouse has escaped
 }
 
-// A function that is called to handle any errors
-function cry() {
+// A function that handles any errors and takes an error as a parameter
+function cry(error) {
     // The cat cries when the mouse has escaped
 }
 
-async function catCatchesMouse() {
-    // Write a short program for the cat to catch the mouse
+async function chaseMouse() {
+    // Write a short program for the cat to chase and catch the mouse
     // Hint: Make sure you handle what happens when the mouse escapes
 
     try {
@@ -26,7 +26,7 @@ async function catCatchesMouse() {
     
 }
 
-// Start the cat catching the mouse
-catCatchesMouse();
+// Start the cat chasing after the mouse
+chaseMouse();
 
 

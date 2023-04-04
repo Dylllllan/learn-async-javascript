@@ -53,6 +53,8 @@ class App {
             const result = await this.lessons[this.currentLesson].runLessonAnimation();
 
             if (result.success) {
+                // Add the result message to the animation success message
+                document.querySelector("#animation .success .message").innerText = result.message;
                 // Show the animation success message
                 document.querySelector("#animation .success").classList.remove("hidden");
                 // Remove the active class from the editor panel

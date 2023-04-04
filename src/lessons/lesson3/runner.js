@@ -9,7 +9,11 @@ export default (code, request) => {
         return new Promise((resolve, reject) => request("catchMouse", () => reject("Escaped")));
     }
 
-    function cry() {
+    function cry(error) {
+        if (error != "Escaped") {
+            request("error", null, "An error wasn't passed to the cry() function. Try again adding error as an argument.");
+            return;
+        }
         request("cry", () => request("finished"));
     }
 

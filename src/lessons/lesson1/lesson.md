@@ -6,7 +6,7 @@ If you've ever had to wait for something *long* to finish in your code, like a r
 
 ---
 
-#### Callbacks 📞
+## Callbacks 📞
 
 > *ring ring*. Oh, you're busy? No worries, call me back when you're finished.
 

@@ -41,13 +41,13 @@
             {
                 "value": "cry",
                 "score": 1,
-                "meta": "Promise"
+                "meta": "function"
             }
         ]
     },
     "test": {
         "script": "test.js",
-        "allowlist": ["await", "catch", "try", "runToMouse", "catchMouse", "cry", "if", "Escaped", "error"]
+        "allowlist": ["await", "catch", "try", "runToMouse", "catchMouse", "cry", "Escaped", "error", "then"]
     },
     "runner": {
         "script": "runner.js",
@@ -72,14 +72,14 @@
             "events": ["catchMouse", "finished;catchMouse"],
             "result": {
                 "success": false,
-                "message": "The cat should cry after the mouse escapes.\nUse await to make sure we wait for the result of catching the mouse.\nAdd code to the catch block to handle any errors."
+                "message": "The mouse escaped but the cat didn't stop and cry.\nAdd code to the catch block to handle any errors, and make sure to use await with Promises."
             }
         },
         {
             "events": ["runToMouse", "finished;runToMouse", "catchMouse", "finished;catchMouse"],
             "result": {
                 "success": false,
-                "message": "The cat should cry after the mouse escapes.\nUse await to make sure we wait for the result of catching the mouse.\nAdd code to the catch block to handle any errors."
+                "message": "The mouse escaped but the cat didn't stop and cry.\nAdd code to the catch block to handle any errors, and make sure to use await with Promises."
             }
         },
         {
