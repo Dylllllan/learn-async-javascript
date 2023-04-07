@@ -1,5 +1,5 @@
 {
-    "id": "lesson2",
+    "id": "parallel",
     "name": "Delivery Day",
     "objective": "Learn how to wait for more than one Promise to finish",
     "resources": {

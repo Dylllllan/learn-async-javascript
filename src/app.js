@@ -1,4 +1,4 @@
-import { TOTAL_LESSONS, START_LESSON } from "./const.js";
+import { LESSONS, START_LESSON } from "./const.js";
 
 import editor from "./editor.js";
 import Lesson from "./lesson.js";
@@ -12,9 +12,9 @@ class App {
         this.currentLesson = START_LESSON - 1;
 
         // For each available lesson
-        for (let i = 1; i <= TOTAL_LESSONS; i++) {
+        for (let i = 0; i <= LESSONS.length; i++) {
             // Create a new lesson and add it to the list
-            this.lessons.push(new Lesson(i, `lesson${i}.json`));
+            this.lessons.push(new Lesson(i + 1, `${LESSONS[i]}.json`));
         }
 
         // Create a listener for the next button in the content panel

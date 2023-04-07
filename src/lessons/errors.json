@@ -1,5 +1,5 @@
 {
-    "id": "lesson3",
+    "id": "errors",
     "name": "The Cat And The Mouse",
     "objective": "Learn how to catch and handle errors with Promises",
     "resources": {

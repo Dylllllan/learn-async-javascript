@@ -1,3 +1,3 @@
-export const TOTAL_LESSONS = 3;
+export const LESSONS = ["callbacks", "parallel", "errors"];
 
 export const START_LESSON = 0;
