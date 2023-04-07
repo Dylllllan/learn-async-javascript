@@ -1,0 +1,74 @@
+{
+    "id": "any",
+    "name": "Feathered Flight Race",
+    "objective": "Learn to wait for the first of many Promises",
+    "resources": {
+        "content": "lesson.md",
+        "code": "code.txt",
+        "animation": "animation.html"
+    },
+    "editor": {
+        "editableArea": {
+            "start": 20,
+            "end": 21
+        },
+        "completers": [
+            {
+                "value": "flyToFinish",
+                "score": 1,
+                "meta": "Promise"
+            },
+            {
+                "value": "celebrate",
+                "score": 1,
+                "meta": "function"
+            },
+            {
+                "value": "Promise.any",
+                "score": 1,
+                "meta": "Promise"
+            },
+            {
+                "value": "winner",
+                "score": 1,
+                "meta": "Variable name"
+            },
+            {
+                "value": "let",
+                "score": 1,
+                "meta": "Declares a variable"
+            },
+            {
+                "value": "await",
+                "score": 1,
+                "meta": "Waits for a Promise"
+            },
+            {
+                "value": "parrot",
+                "score": 1,
+                "meta": "Promise"
+            },
+            {
+                "value": "eagle",
+                "score": 1,
+                "meta": "Promise"
+            },
+            {
+                "value": "owl",
+                "score": 1,
+                "meta": "Promise"
+            }
+        ]
+    },
+    "test": {
+        "script": "test.js",
+        "allowlist": ["await", "Promise", "any", "parrot", "eagle", "owl", "celebrate", "let", "winner"]
+    },
+    "runner": {
+        "script": "runner.js",
+        "timeout": 20000
+    },
+    "feedback": [
+        
+    ]
+}

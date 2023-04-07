@@ -1,10 +1,10 @@
 // A function that is called to make the cat run towards the mouse
-async function runToMouse() {
+function runToMouse() {
     // Returns a promise that resolves when the cat reaches the mouse
 }
 
 // A function that is called when the cat is near the mouse
-async function catchMouse() {
+function catchMouse() {
     // Returns a promise that resolves when the cat has caught the mouse
     // The promise rejects with "Escaped" if the mouse has escaped
 }

@@ -1,0 +1,25 @@
+// A function that delivers a package to the specified location
+function flyToFinish(birdName) {
+    // Returns a promise that resolves with the bird's name when it has finished the race
+}
+
+// A function that is called when a bird wins the race
+function celebrate(birdName) {
+    // The winning bird spins in celebration
+}
+
+async function runRace() {
+    // Start each bird flying to the finish line
+    const parrot = flyToFinish("Parrot");
+    const eagle = flyToFinish("Eagle");
+    const owl = flyToFinish("Owl");
+
+    // Wait for the first bird to finish the race and celebrate their win
+    // Hint: Promise.any() resolves with the result of the Promise which resolves first
+
+    let winner;
+    
+}
+
+// Start the race and celebrate the winner
+runRace();

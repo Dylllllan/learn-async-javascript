@@ -21,7 +21,7 @@
             {
                 "value": "await",
                 "score": 1,
-                "meta": "await keyword"
+                "meta": "Waits for a Promise"
             },
             {
                 "value": "Promise.all",
