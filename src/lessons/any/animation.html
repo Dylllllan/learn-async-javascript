@@ -122,6 +122,9 @@
         </div>
 
         <script>
+            // Add a timestamp for the last time the animations were reset
+            let lastReset = 0;
+
             // Setup a listener to listen to messages from the parent window
             window.addEventListener("message", async function(event) {
                 // Check that the message is coming from the parent window
@@ -167,6 +170,8 @@
                     // Remove the animation attribute
                     elements[i].removeAttribute("animation");
                 }
+                // Set the last reset time to the current time
+                lastReset = Date.now();
             }
 
             function wait(ms) {
@@ -174,26 +179,39 @@
             }
 
             // Function to add an animation to the animation attribute of an element by its ID
-            function addAnimation(id, animation) {
-                document.getElementById(id).setAttribute("animation", document.getElementById(id).getAttribute("animation") + " " + animation);
+            function addAnimation(id, animation, animationTime = Date.now()) {
+                // If the animation time is after the last reset time
+                if (animationTime > lastReset) {
+                    // Add the animation to the animation attribute
+                    document.getElementById(id).setAttribute("animation", (document.getElementById(id).getAttribute("animation") || "") + " " + animation);
+                }
             }
 
             async function flyLow(birdName) {
-                addAnimation(birdName, "flyLow");
+                // Create a constant for the current time
+                const animationTime = Date.now();
+
+                addAnimation(birdName, "flyLow", animationTime);
                 await wait(7000);
-                addAnimation(birdName, "finished")
+                addAnimation(birdName, "finished", animationTime)
             }
 
             async function flyMid(birdName) {
-                addAnimation(birdName, "flyMid");
+                // Create a constant for the current time
+                const animationTime = Date.now();
+
+                addAnimation(birdName, "flyMid", animationTime);
                 await wait(5000);
-                addAnimation(birdName, "finished");
+                addAnimation(birdName, "finished", animationTime);
             }
 
             async function flyHigh(birdName) {
-                addAnimation(birdName, "flyHigh");
+                // Create a constant for the current time
+                const animationTime = Date.now();
+
+                addAnimation(birdName, "flyHigh", animationTime);
                 await wait(3000);
-                addAnimation(birdName, "finished");
+                addAnimation(birdName, "finished", animationTime);
             }
 
             function celebrate(birdName) {

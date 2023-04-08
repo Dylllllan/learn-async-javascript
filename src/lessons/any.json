@@ -66,9 +66,50 @@
     },
     "runner": {
         "script": "runner.js",
-        "timeout": 20000
+        "timeout": 4000
     },
     "feedback": [
-        
+        {
+            "events": [["flyHigh;parrot", "flyMid;eagle", "flyLow;owl"], "finished;flyHigh;parrot", "celebrate;parrot", "finished;celebrate;parrot", "finished"],
+            "result": {
+                "success": true,
+                "message": "Congrats! You completed the lesson."
+            }
+        },
+        {
+            "events": [["flyHigh;parrot", "flyMid;owl", "flyLow;eagle"], "finished;flyHigh;parrot", "celebrate;parrot", "finished;celebrate;parrot", "finished"],
+            "result": {
+                "success": true,
+                "message": "Congrats! You completed the lesson."
+            }
+        },
+        {
+            "events": [["flyHigh;eagle", "flyMid;parrot", "flyLow;owl"], "finished;flyHigh;eagle", "celebrate;eagle", "finished;celebrate;eagle", "finished"],
+            "result": {
+                "success": true,
+                "message": "Congrats! You completed the lesson."
+            }
+        },
+        {
+            "events": [["flyHigh;eagle", "flyMid;owl", "flyLow;parrot"], "finished;flyHigh;eagle", "celebrate;eagle", "finished;celebrate;eagle", "finished"],
+            "result": {
+                "success": true,
+                "message": "Congrats! You completed the lesson."
+            }
+        },
+        {
+            "events": [["flyHigh;owl", "flyMid;eagle", "flyLow;parrot"], "finished;flyHigh;owl", "celebrate;owl", "finished;celebrate;owl", "finished"],
+            "result": {
+                "success": true,
+                "message": "Congrats! You completed the lesson."
+            }
+        },
+        {
+            "events": [["flyHigh;owl", "flyMid;parrot", "flyLow;eagle"], "finished;flyHigh;owl", "celebrate;owl", "finished;celebrate;owl", "finished"],
+            "result": {
+                "success": true,
+                "message": "Congrats! You completed the lesson."
+            }
+        }
     ]
 }

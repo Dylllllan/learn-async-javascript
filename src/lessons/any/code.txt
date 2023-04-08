@@ -15,7 +15,7 @@ async function runRace() {
     const owl = flyToFinish("Owl");
 
     // Wait for the first bird to finish the race and celebrate their win
-    // Hint: Promise.any() resolves with the result of the Promise which resolves first
+    // Hint: Promise.any() resolves with the result of the Promise which finishes first
 
     let winner;
     
