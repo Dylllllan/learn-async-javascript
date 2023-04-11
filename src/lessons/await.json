@@ -1,0 +1,76 @@
+{
+    "id": "await",
+    "name": "Rocket Launch",
+    "objective": "Learn how to use async/await with Promises in JavaScript",
+    "resources": {
+        "content": "lesson.md",
+        "code": "code.txt",
+        "animation": "animation.html"
+    },
+    "editor": {
+        "editableArea": {
+            "start": 15,
+            "end": 16
+        },
+        "completers": [
+            {
+                "value": "await",
+                "score": 1,
+                "meta": "Waits for a Promise"
+            },
+            {
+                "value": "countdown",
+                "score": 1,
+                "meta": "Promise"
+            },
+            {
+                "value": "10",
+                "score": 1,
+                "meta": "Number"
+            },
+            {
+                "value": "blastOff",
+                "score": 1,
+                "meta": "function"
+            }
+        ]
+    },
+    "test": {
+        "script": "test.js",
+        "allowlist": ["await", "countdown", "10", "blastOff", "then", "function"]
+    },
+    "runner": {
+        "script": "runner.js",
+        "timeout": 10000
+    },
+    "feedback": [
+        {
+            "events": ["countdown", "finished;countdown", "blastOff", "finished;blastOff", "finished"],
+            "result": {
+                "success": true,
+                "message": "Congrats! You completed the lesson."
+            }
+        },
+        {
+            "events": [["countdown", "blastOff"], "finished;blastOff", "finished"],
+            "result": {
+                "success": false,
+                "message": "You started the countdown and launched the rocket at the same time. Try again waiting for the countdown to finish first."
+            }
+        },
+        {
+            "events": ["countdown", "finished;countdown"],
+            "result": {
+                "success": false,
+                "message": "You waited for the rocket's countdown, but you didn't launch the rocket. Try again calling blastOff() after the countdown."
+            }
+        },
+        {
+            "events": ["blastOff", "finished;blastOff", "finished"],
+            "result": {
+                "success": false,
+                "message": "You launched the rocket, but you didn't do a countdown first. Try again."
+            }
+        }
+    ]
+}

@@ -97,15 +97,18 @@ class Runner {
         // Create a new Promise that resolves when the code is run or an error occurs
         const codePromise = new Promise((resolve) => {
             try {
-                runner(code, (request, callback = null, data = null) => {
+                runner(code, (request, callback = null, data = null, addDataToEvent = false) => {
                     // If the code has finished running
                     if (finished) {
                         // Return to stop the code from running 
                         return;
                     }
 
+                    // Create an event name constant including the request name and any data
+                    const eventName = `${request}${addDataToEvent ? data || "" : ""}`;
+
                     // Add the request and data to the events array
-                    events.push(`${request}${data ? ";" + data : ""}`);
+                    events.push(eventName);
 
                     // If the request type is error
                     if (request == "error") {
@@ -130,7 +133,7 @@ class Runner {
 
                     // Store the callback function in a wrapper which logs when the event is finished
                     this.callbacks.set(id, () => {
-                        events.push(`finished;${request}${data ? ";" + data : ""}`);
+                        events.push(`finished;${eventName}`);
                         if (callback) {
                             callback();
                         }

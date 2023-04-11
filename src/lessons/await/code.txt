@@ -1,0 +1,20 @@
+// A function that starts a countdown timer in seconds for the rocket launch
+async function countdown(seconds) {
+    // Returns a promise that resolves when the countdown finishes
+}
+
+// A function that launches the rocket into space
+function blastOff() {
+    // We have lift-off!
+}
+
+async function launchRocket() {
+    // Start a countdown for 10 seconds and wait for it to finish
+    // When the countdown finishes, launch the rocket into space!
+    
+    
+    
+}
+
+// Start the rocket launch sequence
+launchRocket();

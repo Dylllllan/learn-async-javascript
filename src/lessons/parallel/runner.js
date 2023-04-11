@@ -5,7 +5,7 @@ export default (code, request) => {
             request("error", null, `An invalid location was provided: ${location || "No location"}`);
         }
 
-        return new Promise((resolve) => request("deliverPackage", resolve, location));
+        return new Promise((resolve) => request("deliverPackage", resolve, location, true));
     }
 
     // Wrap the code in a self-executing async function so we can use await

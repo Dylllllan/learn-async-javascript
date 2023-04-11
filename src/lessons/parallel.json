@@ -94,6 +94,13 @@
                 "success": false,
                 "message": "The delivery was too slow. Try using Promise.all() to deliver them all at the same time."
             }
+        },
+        {
+            "events": ["finished"],
+            "result": {
+                "success": false,
+                "message": "You didn't deliver any packages. Use the deliverPackage() function to deliver them."
+            }
         }
     ]
 }

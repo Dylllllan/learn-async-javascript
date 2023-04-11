@@ -1,5 +1,5 @@
 // A function that delivers a package to the specified location
-function flyToFinish(birdName) {
+async function flyToFinish(birdName) {
     // Returns a promise that resolves with the bird's name when it has finished the race
 }
 

@@ -47,7 +47,7 @@
     },
     "test": {
         "script": "test.js",
-        "allowlist": ["await", "catch", "try", "runToMouse", "catchMouse", "cry", "Escaped", "error", "then"]
+        "allowlist": ["await", "catch", "try", "runToMouse", "catchMouse", "cry", "Escaped", "error", "then", "function"]
     },
     "runner": {
         "script": "runner.js",
