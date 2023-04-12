@@ -105,7 +105,7 @@ class Runner {
                     }
 
                     // Create an event name constant including the request name and any data
-                    const eventName = `${request}${addDataToEvent ? data || "" : ""}`;
+                    const eventName = `${request}${addDataToEvent ? ";" + data : ""}`;
 
                     // Add the request and data to the events array
                     events.push(eventName);
