@@ -9,7 +9,7 @@ function blastOff() {
 }
 
 async function launchRocket() {
-    // Start a countdown for 10 seconds and wait for it to finish
+    // Start a countdown for 5 seconds and wait for it to finish
     // When the countdown finishes, launch the rocket into space!
     
     

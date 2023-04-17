@@ -24,7 +24,7 @@
                 "meta": "Promise"
             },
             {
-                "value": "10",
+                "value": "5",
                 "score": 1,
                 "meta": "Number"
             },
@@ -37,11 +37,11 @@
     },
     "test": {
         "script": "test.js",
-        "allowlist": ["await", "countdown", "10", "blastOff", "then", "function"]
+        "allowlist": ["await", "countdown", "5", "blastOff", "then", "function"]
     },
     "runner": {
         "script": "runner.js",
-        "timeout": 10000
+        "timeout": 8500
     },
     "feedback": [
         {

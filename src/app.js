@@ -82,8 +82,10 @@ class App {
 
     // Create a method to show the content/editor view
     showContentView() {
-        // Hide the animation panel
-        document.querySelector("#animation").classList.add("hidden");
+        // Hide the animation success panel
+        document.querySelector("#animation .success").classList.add("hidden");
+        // Hide the editor panel
+        document.querySelector("#editor").classList.add("hidden");
         // Show the content panel
         document.querySelector("#content").classList.remove("hidden");
         // Remove the active class from the animation panel
@@ -104,6 +106,8 @@ class App {
         document.querySelector("#animation .success").classList.add("hidden");
         // Show the animation panel
         document.querySelector("#animation").classList.remove("hidden");
+        // Show the editor panel
+        document.querySelector("#editor").classList.remove("hidden");
         // Add the active class to the editor panel
         document.querySelector("#editor").classList.add("active");
         // Remove the active class from the content panel

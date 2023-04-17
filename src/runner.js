@@ -38,7 +38,7 @@ class Runner {
         // Check for syntax errors in the editor
         if (editor.hasSyntaxErrors()) {
             // Return an error message
-            return {"success": false, "message": "There's something wrong with your code. Please try again."};
+            return {"success": false, "message": "There's something wrong with your code. Please check the errors in the editor and try again."};
         }
 
         // Extract the sequences of words from the code
@@ -47,8 +47,10 @@ class Runner {
         const allowed = sequences.every(sequence => allowlist.includes(sequence));
         // If not all sequences are allowed
         if (!allowed) {
+            // Find the first sequence that isn't allowed
+            const sequence = sequences.find(sequence => !allowlist.includes(sequence));
             // Return an error message
-            return {"success": false, "message": "There's something in here that we don't recognise. Please try again."};
+            return {"success": false, "message": `The word "${sequence}" isn't allowed. Please edit your code and try again.`};
         }
 
         // The test script can be used to provide more specific feedback about the code

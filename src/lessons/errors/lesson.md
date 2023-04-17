@@ -1,4 +1,4 @@
-#### When things go wrong 💥
+## When things go wrong 💥
 
 As with anything, sometimes Promises don't work out the way we hoped. When an error happens, we say that the Promise has `rejected`.  
 
