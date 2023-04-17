@@ -42,6 +42,11 @@
                 "value": "cry",
                 "score": 1,
                 "meta": "function"
+            },
+            {
+                "value": "error",
+                "score": 1,
+                "meta": "Caught error"
             }
         ]
     },

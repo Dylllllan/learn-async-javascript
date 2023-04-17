@@ -41,7 +41,7 @@
     },
     "runner": {
         "script": "runner.js",
-        "timeout": 8500
+        "timeout": 9500
     },
     "feedback": [
         {
