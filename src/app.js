@@ -12,7 +12,7 @@ class App {
         this.currentLesson = START_LESSON - 1;
 
         // For each available lesson
-        for (let i = 0; i <= LESSONS.length; i++) {
+        for (let i = 0; i < LESSONS.length; i++) {
             // Create a new lesson and add it to the list
             this.lessons.push(new Lesson(i + 1, `${LESSONS[i]}.json`));
         }
@@ -76,8 +76,17 @@ class App {
             this.nextLesson();
         });
 
-        // Load the first lesson
-        this.nextLesson();
+        // Check the query parameters for if the consent form has been signed
+        const queryParams = new URLSearchParams(window.location.search);
+        const consentSigned = queryParams.get("cs");
+
+        if (consentSigned) {
+            // If the consent form has been signed, load the first lesson
+            this.nextLesson();
+        } else {
+            // Otherwise, redirect to the consent form
+            window.location.href = "https://forms.microsoft.com/e/ZQ3bsKQDY2";
+        }
     }
 
     // Create a method to show the content/editor view
@@ -125,12 +134,16 @@ class App {
         this.currentLesson++;
         // If there are no more lessons
         if (this.currentLesson >= this.lessons.length) {
-            // TO-DO: Add a completion screen
-
+            // Redirect to the user evaluation survey
+            window.location.href = "https://forms.microsoft.com/e/FJFxGp57PE";
             return;
         }
 
-        // TO-DO: Add a loading screen
+        // If the current lesson is the last lesson
+        if (this.currentLesson == this.lessons.length - 1) {
+            // Change the text of the next button to "Finish"
+            document.querySelector("#animation .btn").innerText = "Finish";
+        }
 
         // Load the next lesson
         await this.lessons[this.currentLesson].loadLesson();

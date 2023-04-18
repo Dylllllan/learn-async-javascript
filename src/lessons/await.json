@@ -48,7 +48,7 @@
             "events": ["countdown", "finished;countdown", "blastOff", "finished;blastOff", "finished"],
             "result": {
                 "success": true,
-                "message": "Congrats! You completed the lesson."
+                "message": "Congrats! You completed the lesson. You can now use async/await with Promises in JavaScript."
             }
         },
         {

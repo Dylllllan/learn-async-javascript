@@ -38,7 +38,7 @@
             "events": ["catchFly", "finished;catchFly", "celebrate", "finished;celebrate", "finished"],
             "result": {
                 "success": true,
-                "message": "Congrats! You completed the lesson."
+                "message": "Congrats! You completed the lesson. You can now use callbacks in JavaScript."
             }
         },
         {

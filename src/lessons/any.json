@@ -73,7 +73,7 @@
             "events": [["flyHigh", "flyMid", "flyLow"], "finished;flyHigh", "celebrate", "finished;celebrate", "finished"],
             "result": {
                 "success": true,
-                "message": "Congrats! You completed the lesson."
+                "message": "Congrats! You completed the lesson. You can now use Promise.any() to wait for the first of many Promises to resolve."
             }
         },
         {

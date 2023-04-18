@@ -78,7 +78,7 @@
             "events": [["deliverPackage;Bank", "deliverPackage;School", "deliverPackage;Hospital", "deliverPackage;Government", "deliverPackage;Library"], ["finished;deliverPackage;Bank", "finished;deliverPackage;School", "finished;deliverPackage;Hospital", "finished;deliverPackage;Government", "finished;deliverPackage;Library"], "finished"],
             "result": {
                 "success": true,
-                "message": "Congrats! You completed the lesson."
+                "message": "Congrats! You completed the lesson. You can now use Promise.all() to wait for multiple Promises to finish."
             }
         },
         {
