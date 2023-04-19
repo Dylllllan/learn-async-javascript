@@ -80,7 +80,7 @@
             "events": [["flyHigh", "flyMid", "flyLow"], "finished;flyHigh", "finished;flyMid", "finished;flyLow"],
             "result": {
                 "success": false,
-                "message": "Whoops! You forgot to use Promise.all() to wait for the first bird to finish flying. Try again."
+                "message": "Whoops! You forgot to use Promise.any() to wait for the first bird to finish flying. Try again."
             }
         }
     ]
