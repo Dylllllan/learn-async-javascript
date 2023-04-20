@@ -54,7 +54,7 @@ class App {
 
             if (result.success) {
                 // Add the result message to the animation success message
-                document.querySelector("#animation .success .message").innerText = result.message;
+                document.querySelector("#animation .success .message").innerText = result.message || "Congrats! You completed the lesson.";
                 // Show the animation success message
                 document.querySelector("#animation .success").classList.remove("hidden");
                 // Remove the active class from the editor panel
@@ -130,6 +130,9 @@ class App {
 
     // Create a method to load the next lesson
     async nextLesson() {
+        // Hide the animation success panel immediately
+        document.querySelector("#animation .success").classList.add("hidden");
+
         // Increment the current lesson counter
         this.currentLesson++;
         // If there are no more lessons
