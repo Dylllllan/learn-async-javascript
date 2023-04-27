@@ -77,8 +77,20 @@ class Lesson {
             // Run the lesson runner script with a timeout
             const codeResult = await runner.run(code, this.runner, this.config.runner.timeout);
             
-            // Get the lesson result from the events run, or fallback to an error result
-            const lessonResult = this.getLessonResult(codeResult.events) || ERROR_RESULT;
+            // Get the lesson result from the events run
+            let lessonResult = this.getLessonResultFromEvents(codeResult.events);
+
+            // If no lesson result is found...
+            if (!lessonResult) {
+                if (codeResult.success) {
+                    // If the code result was successful, use a fallback error result
+                    // i.e. The sequence of events was not recognised
+                    lessonResult = ERROR_RESULT;
+                } else {
+                    // Otherwise, fallback to the code result as the lesson result
+                    lessonResult = codeResult;
+                }
+            }
 
             // If the lesson wasn't successful
             if (!lessonResult.success) {
@@ -94,7 +106,7 @@ class Lesson {
         }
     }
 
-    getLessonResult(events) {
+    getLessonResultFromEvents(events) {
         // If no events were provided, return null
         if (!events) {
             return null;
