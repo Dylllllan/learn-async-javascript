@@ -61,7 +61,6 @@
         ]
     },
     "test": {
-        "script": "test.js",
         "allowlist": ["await", "Promise", "any", "parrot", "eagle", "owl", "celebrate", "let", "winner", "then", "function"]
     },
     "runner": {

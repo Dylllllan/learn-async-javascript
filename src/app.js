@@ -145,7 +145,7 @@ class App {
         // If the current lesson is the last lesson
         if (this.currentLesson == this.lessons.length - 1) {
             // Change the text of the next button to "Finish"
-            document.querySelector("#animation .btn").innerText = "Finish";
+            document.querySelector("#animation .btn").innerText = "Continue to survey";
         }
 
         // Load the next lesson

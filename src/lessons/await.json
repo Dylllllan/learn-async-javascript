@@ -36,7 +36,6 @@
         ]
     },
     "test": {
-        "script": "test.js",
         "allowlist": ["await", "countdown", "5", "blastOff", "then", "function"]
     },
     "runner": {

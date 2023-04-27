@@ -38,7 +38,7 @@ class Runner {
         // Check for syntax errors in the editor
         if (editor.hasSyntaxErrors()) {
             // Return an error message
-            return {"success": false, "message": "There's something wrong with your code. Please check the errors in the editor and try again."};
+            return {"success": false, "message": "There's something wrong with your code. Please check the syntax errors in the editor and try again."};
         }
 
         // Extract the sequences of words from the code
@@ -53,9 +53,13 @@ class Runner {
             return {"success": false, "message": `The word "${sequence}" isn't allowed. Please edit your code and try again.`};
         }
 
-        // The test script can be used to provide more specific feedback about the code
-        // Returns true if the code passes, otherwise throws an error
-        return tester(code);
+        // If a test function is provided, it can be used to provide more specific feedback about the code
+        // Returns a success message if the code passes, otherwise returns an error message
+        if (tester) {
+            return tester(code);
+        }
+        // If no test function is provided, return a success message
+        return {"success": true};
     }
 
     // Create a method to extract the sequences of letters and numbers from a string

@@ -26,7 +26,6 @@
         ]
     },
     "test": {
-        "script": "test.js",
         "allowlist": ["catchFly", "celebrate"]
     },
     "runner": {

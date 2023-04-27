@@ -1,6 +1,7 @@
 import editor from "./editor";
 import content from "./content";
 import runner from "./runner";
+import { ERROR_RESULT } from "./const";
 
 // Create a new class called Lesson
 class Lesson {
@@ -76,8 +77,8 @@ class Lesson {
             // Run the lesson runner script with a timeout
             const codeResult = await runner.run(code, this.runner, this.config.runner.timeout);
             
-            // Get the lesson result from the events run, or fallback to the code result
-            const lessonResult = this.getLessonResult(codeResult.events) || codeResult;
+            // Get the lesson result from the events run, or fallback to an error result
+            const lessonResult = this.getLessonResult(codeResult.events) || ERROR_RESULT;
 
             // If the lesson wasn't successful
             if (!lessonResult.success) {
@@ -116,11 +117,14 @@ class Lesson {
     }
 
     async loadScript(fileName) {
-        const { default: script } = await import(
-            /* webpackInclude: /\.js$/ */
-            `./lessons/${this.config.id}/${fileName}`
-        );
-        return script;
+        if (fileName) {
+            const { default: script } = await import(
+                /* webpackInclude: /\.js$/ */
+                `./lessons/${this.config.id}/${fileName}`
+            );
+            return script;
+        }
+        return null;
     }
 }
 

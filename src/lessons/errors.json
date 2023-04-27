@@ -51,7 +51,6 @@
         ]
     },
     "test": {
-        "script": "test.js",
         "allowlist": ["await", "catch", "try", "runToMouse", "catchMouse", "cry", "Escaped", "error", "then", "function"]
     },
     "runner": {
@@ -63,14 +62,14 @@
             "events": ["runToMouse", "finished;runToMouse", "catchMouse", "finished;catchMouse", "cry", "finished;cry", "finished"],
             "result": {
                 "success": true,
-                "message": "Congrats! You completed the lesson. You can now catch and handle errors with Promises in JavaScript.\nClick \"Finish\" to go to the user evaluation survey. Thank you for your time!"
+                "message": "Congrats! You completed the lesson. You can now catch and handle errors with Promises in JavaScript."
             }
         },
         {
             "events": ["catchMouse", "finished;catchMouse", "cry", "finished;cry", "finished"],
             "result": {
-                "success": true,
-                "message": "Congrats! You completed the lesson. (The cat could've tried running to the mouse first though LOL)\nClick \"Finish\" to go to the user evaluation survey. Thank you for your time!"
+                "success": false,
+                "message": "The cat should finish running to the mouse before trying to catch it. Try again using runToMouse() before catchMouse()."
             }
         },
         {
@@ -106,6 +105,13 @@
             "result": {
                 "success": false,
                 "message": "You didn't try to catch the mouse. Try again using the catchMouse function. Remember to catch any errors!"
+            }
+        },
+        {
+            "events": ["catchMouse", "finished;catchMouse", "runToMouse", "finished;runToMouse", "cry", "finished;cry", "finished"],
+            "result": {
+                "success": false,
+                "message": "The cat should finish running to the mouse before trying to catch it. Try again using runToMouse() before catchMouse()."
             }
         }
     ]
