@@ -79,7 +79,7 @@
             "events": [["flyHigh", "flyMid", "flyLow"], "finished;flyHigh", "finished;flyMid", "finished;flyLow"],
             "result": {
                 "success": false,
-                "message": "Whoops! You forgot to use Promise.any() to wait for the first bird to finish flying. Try again."
+                "message": "Whoops! You didn't complete the exercise correctly. Make sure to use Promise.any() to get the name of the winning bird, then pass its name to the celebrate() function. Try again."
             }
         }
     ]
