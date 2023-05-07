@@ -62,7 +62,7 @@
             "events": ["runToMouse", "finished;runToMouse", "catchMouse", "finished;catchMouse", "cry", "finished;cry", "finished"],
             "result": {
                 "success": true,
-                "message": "Congrats! You completed the lesson. You can now catch and handle errors with Promises in JavaScript."
+                "message": "Congrats! You completed the lesson. You can now catch and handle errors with Promises in JavaScript. Well done for completing all of the lessons!"
             }
         },
         {

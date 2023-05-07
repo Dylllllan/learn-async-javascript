@@ -76,17 +76,10 @@ class App {
             this.nextLesson();
         });
 
-        // Check the query parameters for if the consent form has been signed
-        const queryParams = new URLSearchParams(window.location.search);
-        const consentSigned = queryParams.get("cs");
+        // Removed links to the user evaluation consent form upon completion of the study
 
-        if (consentSigned) {
-            // If the consent form has been signed, load the first lesson
-            this.nextLesson();
-        } else {
-            // Otherwise, redirect to the consent form
-            window.location.href = "https://forms.microsoft.com/e/ZQ3bsKQDY2";
-        }
+        // Load the first lesson
+        this.nextLesson();
     }
 
     // Create a method to show the content/editor view
@@ -137,15 +130,14 @@ class App {
         this.currentLesson++;
         // If there are no more lessons
         if (this.currentLesson >= this.lessons.length) {
-            // Redirect to the user evaluation survey
-            window.location.href = "https://forms.microsoft.com/e/FJFxGp57PE";
+            // (This should never happen since the next button is hidden at this point)
             return;
         }
 
         // If the current lesson is the last lesson
         if (this.currentLesson == this.lessons.length - 1) {
-            // Change the text of the next button to "Finish"
-            document.querySelector("#animation .btn").innerText = "Continue to survey";
+            // Hide the next button in the animation panel
+            document.querySelector("#animation .btn").classList.add("hidden");
         }
 
         // Load the next lesson
