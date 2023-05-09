@@ -190,6 +190,8 @@ class Editor {
     // Create a method to set whether the editor is read-only
     setReadOnly(readOnly) {
         this.editor.setReadOnly(readOnly);
+        // Resize the editor to ensure it displays correctly
+        this.editor.resize();
     }
 
     // Create a method to check whether there are syntax errors (annotations) in the editor

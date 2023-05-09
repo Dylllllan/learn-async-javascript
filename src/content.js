@@ -10,6 +10,8 @@ class Content {
     // Create a method to set the content of the content element
     setContent(markdown) {
         this.element.innerHTML = parse(markdown);
+        // Reset the scroll position of the content to the top
+        this.element.scroll({"top": 0});
     }
 }
 
