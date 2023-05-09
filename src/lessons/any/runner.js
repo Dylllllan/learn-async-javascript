@@ -15,7 +15,7 @@ export default (code, request) => {
 
     function celebrate(birdName) {
         if (birdSpeeds[birdName] !== "High") {
-            request("error", null, `The ${birdName} is not the winner of the race. Try again.`);
+            request("error", null, birdName ? `The ${birdName} is not the winner of the race. Try again.` : "No bird name was passed to the celebrate() function. Try again.");
             return;
         }
         request("celebrate", () => request("finished"), birdName.toLowerCase());
